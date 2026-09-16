@@ -1,0 +1,598 @@
+<!doctype html>
+<html lang="en">
+<head><meta name="robots" content="noindex">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Okanagan Valley — Off The Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..700,0..100,0..1&family=Archivo:wdth,wght@62..125,400..800&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+<div class="band band--navy">
+  <header class="wrap top">
+    <a class="top__logo" href="./"><img src="logos/logo-light.png" alt="Off The Map, home" width="480" height="565"></a>
+    <nav class="top__nav" aria-label="Main">
+      <a href="trip.html" aria-current="page">Trips</a>
+      <a href="./#story">About</a>
+      <a href="#contact">Contact</a>
+      <button class="top__lang" type="button">EN</button>
+      <button class="top__menu" type="button">Menu</button>
+    </nav>
+  </header>
+</div>
+
+<main>
+
+  <!-- The cover, framed rather than bled: the artwork is 1254px square, short
+       of the 2048px minimum in docs/brand.md, and a painting wants an edge. -->
+  <div class="band band--navy">
+    <div class="wrap railed">
+
+      <section class="leg trip-hero">
+        <span class="pin pin--start" aria-hidden="true"></span>
+        <figure class="trip-hero__art">
+          <img src="img/okanagan-lake-1-1254.webp"
+               srcset="img/okanagan-lake-1-700.webp 700w, img/okanagan-lake-1-1254.webp 1254w"
+               sizes="(min-width: 900px) 48vw, 92vw" width="1254" height="1254"
+               alt="Illustration: red canoes moored at a wooden dock on a turquoise lake, a timber lodge among pines, pink alpenglow on the peaks behind">
+        </figure>
+        <div>
+          <p class="coords">British Columbia, Canada. Kelowna, 49.888° N 119.496° W</p>
+          <h1 class="display">Okanagan Valley</h1>
+          <p class="trip-hero__sum">Ten nights in a chalet above Kelowna, in the heart of Canada's main wine
+            region. Six people, never more.</p>
+          <dl class="facts">
+            <div><dt>Length</dt><dd>10 nights</dd></div>
+            <div><dt>Group</dt><dd>6 people</dd></div>
+            <div><dt>From</dt><dd>$26,900 MXN</dd></div>
+            <div><dt>Base</dt><dd>Chalet on Big White</dd></div>
+          </dl>
+          <div class="trip-body">
+            <p>Each day opens onto the region differently: cycling the historic wooden trestle bridges of Myra Canyon,
+              tastings at wineries with long views, a boat trip on Lake Okanagan, moderate hikes beside lakes that
+              change colour.</p>
+            <p>There is room for the urban and cultural side of the valley too, with chosen stops in Kelowna, Lake
+              Country, Vernon, Peachland and Osoyoos. A niche trip, away from the busy routes, built so what you bring
+              home actually stays.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="leg" id="map" aria-labelledby="map-title">
+        <span class="pin" aria-hidden="true"></span>
+        <div class="leg__head">
+          <h2 class="display" id="map-title">The valley, stop by stop</h2>
+          <p>Every pin opens its day below. The chalet on Big White is home for eight nights; the last two are in Revelstoke.</p>
+        </div>
+        <div class="valley">
+          <div class="valley__map">
+            <svg viewBox="-30 0 450 620" role="img" aria-labelledby="valley-title">
+              <title id="valley-title">Schematic map of the Okanagan Valley, from Penticton north to Revelstoke, with the stops of the trip</title>
+              <g fill="#f6f6f6" fill-opacity="0.6" font-family="Archivo, sans-serif" font-size="11" font-weight="600">
+                <path d="M-12 34l6 14h-12z"/><text x="-12" y="26" text-anchor="middle">N</text>
+              </g>
+              <g fill="none" stroke="#f6f6f6" stroke-opacity="0.16" stroke-linecap="round">
+                <path stroke-width="12" d="M142 272C130 300 118 320 114 350S110 410 112 432C104 450 84 458 78 474S82 520 86 530S92 552 95 558"/>
+                <path stroke-width="6" d="M158 313L141 357"/>
+                <path stroke-width="6" d="M101 578L99 606"/>
+              </g>
+              <text class="map-note" transform="translate(96 420) rotate(-82)">Okanagan Lake</text>
+              <text class="map-note" x="170" y="344">Kalamalka Lake</text>
+              <text class="map-note" x="228" y="124">along Shuswap Lake</text>
+              <text class="map-note" x="410" y="612" text-anchor="end">Not to scale</text>
+              <g fill="none" stroke="#f6f6f6" stroke-opacity="0.6" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="7 7">
+                <path d="M97 564C88 530 70 500 69 468C72 450 95 440 115 429C125 410 128 390 131 374C140 345 150 320 157 300"/>
+                <path d="M115 429C150 440 190 460 222 486"/>
+                <path d="M115 429C130 445 145 455 152 466"/>
+                <path d="M157 300C165 270 170 250 171 238C180 190 200 130 213 105C260 80 320 70 362 52"/>
+              </g>
+
+              <a class="map-pin" href="#stop-arrival"><circle cx="222" cy="486" r="9" fill="#000026" stroke="#cfff06" stroke-width="5"/></a>
+              <a class="map-pin" href="#stop-downtown-kelowna"><circle cx="115" cy="429" r="7" fill="#cfff06"/></a>
+              <a class="map-pin" href="#stop-lake-country"><circle cx="131" cy="374" r="7" fill="#cfff06"/></a>
+              <a class="map-pin" href="#stop-myra-canyon"><circle cx="152" cy="466" r="7" fill="#cfff06"/></a>
+              <a class="map-pin" href="#stop-peachland"><circle cx="69" cy="468" r="7" fill="#cfff06"/></a>
+              <a class="map-pin" href="#stop-vernon"><circle cx="157" cy="300" r="7" fill="#cfff06"/></a>
+              <a class="map-pin" href="#stop-penticton"><circle cx="97" cy="564" r="7" fill="#cfff06"/></a>
+              <a class="map-pin" href="#stop-to-revelstoke">
+                <g transform="translate(362 52) rotate(-8)" fill="#cfff06">
+                  <rect x="-13" y="-4.5" width="26" height="9" rx="4.5"/><rect x="-4.5" y="-13" width="9" height="26" rx="4.5"/>
+                </g>
+              </a>
+
+              <g class="map-label">
+                <text x="222" y="516" text-anchor="middle">Chalet on Big White</text>
+                <text x="127" y="421">Kelowna</text>
+                <text x="144" y="379">Lake Country</text>
+                <text x="152" y="488" text-anchor="middle">Myra Canyon</text>
+                <text x="56" y="473" text-anchor="end">Peachland</text>
+                <text x="170" y="305">Vernon</text>
+                <text x="110" y="569">Penticton</text>
+                <text x="346" y="36" text-anchor="end">Revelstoke</text>
+              </g>
+            </svg>
+          </div>
+          <nav class="valley__list" aria-label="Stops in order">
+            <ol>
+              <li><a href="#stop-arrival"><span class="wide">Arrival</span><span>A quiet first night</span></a></li>
+              <li><a href="#stop-downtown-kelowna"><span class="wide">Downtown Kelowna</span><span>Culture and city</span></a></li>
+              <li><a href="#stop-lake-country"><span class="wide">Lake Country</span><span>Wine and nature</span></a></li>
+              <li><a href="#stop-myra-canyon"><span class="wide">Myra Canyon</span><span>The iconic one</span></a></li>
+              <li><a href="#stop-kelowna"><span class="wide">Kelowna</span><span>The authentic Okanagan</span></a></li>
+              <li><a href="#stop-peachland"><span class="wide">Peachland</span><span>A small town worth finding</span></a></li>
+              <li><a href="#stop-vernon"><span class="wide">Vernon</span><span>The lake of colours</span></a></li>
+              <li><a href="#stop-penticton"><span class="wide">Penticton</span><span>Float and breweries</span></a></li>
+              <li><a href="#stop-to-revelstoke"><span class="wide">To Revelstoke</span><span>On the road to the mountain</span></a></li>
+              <li><a href="#stop-revelstoke"><span class="wide">Revelstoke</span><span>Mountain and adventure</span></a></li>
+              <li><a href="#stop-revelstoke-river"><span class="wide">Revelstoke</span><span>River, and back to Kelowna</span></a></li>
+              <li><a href="#stop-departure"><span class="wide">Departure</span><span>Bye bye Canada</span></a></li>
+            </ol>
+          </nav>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- The itinerary. Paper is the documented reading surface, and twelve days
+       of detail is reading. Each stop is a native <details> so the page stays
+       short on a phone and still works for a fifteen-day trip. -->
+  <div class="band band--paper">
+    <div class="wrap railed">
+      <section class="leg" aria-labelledby="days-title">
+        <span class="pin" aria-hidden="true"></span>
+        <div class="leg__head">
+          <h2 class="display" id="days-title">Day by day</h2>
+          <p>Twelve stops. Open the ones you care about — nothing here is fixed to the minute.</p>
+        </div>
+
+        <div class="days">
+
+          <details class="day" id="stop-arrival" open>
+            <summary>
+              <span class="day__n">01</span>
+              <span><span class="day__name">Arrival</span><span class="day__theme">A quiet first night</span></span>
+              <svg class="day__mark" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 7l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="day__body">
+              <ul class="plan">
+                <li><span class="t"></span><div><b>Arrival and check-in</b><p>Afternoon arrival in Kelowna and the drive up to the chalet. Time to settle in, without rushing.</p></div></li>
+                <li><span class="t"></span><div><b>First evening</b><p>A quiet night to recover from the journey.</p></div></li>
+              </ul>
+            </div>
+          </details>
+
+          <details class="day" id="stop-downtown-kelowna">
+            <summary>
+              <span class="day__n">02</span>
+              <span><span class="day__name">Downtown Kelowna</span><span class="day__theme">Culture and city</span></span>
+              <svg class="day__mark" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 7l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="day__body day__body--photo">
+              <ul class="plan">
+                <li><time>09:00</time><div><b>Art and local culture</b><p>The Wine &amp; Orchard Museum and the Kelowna Art Gallery, with a coffee at Sprout in between.</p></div></li>
+                <li><span class="t"></span><div><b>Walk by the lake, lunch on Bernard Road</b></div></li>
+                <li><time>15:30</time><div><b>Electric boat on the lake</b></div></li>
+                <li><time>20:00</time><div><b>Dinner</b><p>At a restaurant chosen by the chef.</p></div></li>
+              </ul>
+              <img src="https://images.unsplash.com/photo-1635970544119-5bdf0da2af5b?auto=format&fit=crop&q=70&w=1000" loading="lazy" alt="A long boardwalk along the lake in Kelowna">
+            </div>
+          </details>
+
+          <details class="day" id="stop-lake-country">
+            <summary>
+              <span class="day__n">03</span>
+              <span><span class="day__name">Lake Country</span><span class="day__theme">Wine and nature</span></span>
+              <svg class="day__mark" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 7l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="day__body day__body--photo">
+              <ul class="plan">
+                <li><time>10:00</time><div><b>Oyama Lookout</b></div></li>
+                <li><time>11:00</time><div><b>50th Parallel Estate Winery</b><p>Known for its sustainable viticulture.</p></div></li>
+                <li><time>12:00</time><div><b>Gray Monk Estate Winery</b></div></li>
+                <li><time>13:30</time><div><b>Lunch at Peak Cellars</b><p>Overlooking the vines, then Kaloya Regional Park above Kalamalka Lake.</p></div></li>
+              </ul>
+              <img src="https://images.unsplash.com/photo-1722932662705-4b0b8fd3605c?auto=format&fit=crop&q=70&w=1000" loading="lazy" alt="Rows of vines running down to a lake below mountains">
+            </div>
+          </details>
+
+          <details class="day" id="stop-myra-canyon">
+            <summary>
+              <span class="day__n">04</span>
+              <span><span class="day__name">Myra Canyon</span><span class="day__theme">The iconic one</span></span>
+              <svg class="day__mark" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 7l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="day__body day__body--photo">
+              <ul class="plan">
+                <li><time>09:00</time><div><b>Cycling the trestles</b><p>Two to two and a half hours over the historic wooden bridges suspended above the canyon.</p></div></li>
+                <li><span class="t"></span><div><b>Free afternoon in Kelowna</b></div></li>
+                <li><time>20:30</time><div><b>Dinner at the chalet</b><p>Cooked by the chef.</p></div></li>
+              </ul>
+              <img src="https://images.unsplash.com/photo-1781212893081-95e535722281?auto=format&fit=crop&q=70&w=1000" loading="lazy" alt="An old wooden railway trestle crossing a forested valley">
+            </div>
+          </details>
+
+          <details class="day" id="stop-kelowna">
+            <summary>
+              <span class="day__n">05</span>
+              <span><span class="day__name">Kelowna</span><span class="day__theme">The authentic Okanagan</span></span>
+              <svg class="day__mark" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 7l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="day__body">
+              <ul class="plan">
+                <li><time>08:30</time><div><b>Kangaroo Creek Farm</b></div></li>
+                <li><time>11:00</time><div><b>Fruit picking</b><p>At a local orchard, one of the most authentic things the valley does.</p></div></li>
+                <li><time>13:00</time><div><b>Picnic by the lake</b><p>At Bertram Creek, with local wine.</p></div></li>
+                <li><time>16:00</time><div><b>Summerhill Pyramid Winery</b></div></li>
+              </ul>
+            </div>
+          </details>
+
+          <details class="day" id="stop-peachland">
+            <summary>
+              <span class="day__n">06</span>
+              <span><span class="day__name">Peachland</span><span class="day__theme">A small town worth finding</span></span>
+              <svg class="day__mark" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 7l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="day__body">
+              <ul class="plan">
+                <li><time>08:00</time><div><b>Pincushion Mountain</b><p>A moderate hike.</p></div></li>
+                <li><time>14:00</time><div><b>Mission Hill Family Estate</b></div></li>
+                <li><time>17:00</time><div><b>Cooking with the chef</b><p>With the fruit picked the day before.</p></div></li>
+              </ul>
+            </div>
+          </details>
+
+          <details class="day" id="stop-vernon">
+            <summary>
+              <span class="day__n">07</span>
+              <span><span class="day__name">Vernon</span><span class="day__theme">The lake of colours</span></span>
+              <svg class="day__mark" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 7l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="day__body day__body--photo">
+              <ul class="plan">
+                <li><time>08:30</time><div><b>Kalamalka Lake</b><p>The Wall Loop Trail, about 7 km above turquoise water, then a swim.</p></div></li>
+                <li><time>15:00</time><div><b>Free afternoon</b><p>30th Avenue, local galleries, cafés, or nothing at all.</p></div></li>
+                <li><span class="t"></span><div><b>BX Falls and Planet Bee</b></div></li>
+              </ul>
+              <img src="https://images.unsplash.com/photo-1684521382411-d6c086f55d95?auto=format&fit=crop&q=70&w=1000" loading="lazy" alt="A green lake below a steep wooded hillside">
+            </div>
+          </details>
+
+          <details class="day" id="stop-penticton">
+            <summary>
+              <span class="day__n">08</span>
+              <span><span class="day__name">Penticton</span><span class="day__theme">Float and breweries</span></span>
+              <svg class="day__mark" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 7l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="day__body">
+              <ul class="plan">
+                <li><time>11:00</time><div><b>The Penticton Channel Float</b><p>An hour drifting between Okanagan and Skaha lakes.</p></div></li>
+                <li><time>15:00</time><div><b>Penticton Beer Blocks</b></div></li>
+              </ul>
+            </div>
+          </details>
+
+          <details class="day" id="stop-to-revelstoke">
+            <summary>
+              <span class="day__n">09</span>
+              <span><span class="day__name">To Revelstoke</span><span class="day__theme">On the road to the mountain</span></span>
+              <svg class="day__mark" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 7l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="day__body day__body--photo">
+              <div>
+                <ul class="plan">
+                  <li><time>08:00</time><div><b>The Trans-Canada</b><p>About two and a half hours, along Shuswap Lake.</p></div></li>
+                  <li><span class="t"></span><div><b>Revelstoke Mountain Resort</b><p>The gondola to the top of Mount Mackenzie.</p></div></li>
+                </ul>
+                <p class="day__note">Two nights in Revelstoke, not at the chalet.</p>
+              </div>
+              <img src="https://images.unsplash.com/photo-1559096456-6c212496544e?auto=format&fit=crop&q=70&w=1000" loading="lazy" alt="Snow-capped mountain ranges under cloud">
+            </div>
+          </details>
+
+          <details class="day" id="stop-revelstoke">
+            <summary>
+              <span class="day__n">10</span>
+              <span><span class="day__name">Revelstoke</span><span class="day__theme">Mountain and adventure</span></span>
+              <svg class="day__mark" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 7l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="day__body day__body--photo">
+              <ul class="plan">
+                <li><time>15:30</time><div><b>Meadows in the Sky Parkway</b><p>A short walk through the alpine meadows of the national park.</p></div></li>
+                <li><time>20:00</time><div><b>Dinner in town</b></div></li>
+              </ul>
+              <img src="https://images.unsplash.com/photo-1652923678850-c78d58058d12?auto=format&fit=crop&q=70&w=1000" loading="lazy" alt="A wooden bench among wildflowers on a mountain meadow">
+            </div>
+          </details>
+
+          <details class="day" id="stop-revelstoke-river">
+            <summary>
+              <span class="day__n">11</span>
+              <span><span class="day__name">Revelstoke</span><span class="day__theme">River, and back to Kelowna</span></span>
+              <svg class="day__mark" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 7l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="day__body">
+              <ul class="plan">
+                <li><time>09:30</time><div><b>The Illecillewaet</b><p>Rafting or floating, paid to the operator.</p></div></li>
+                <li><time>13:00</time><div><b>Enchanted Forest</b></div></li>
+                <li><time>15:30</time><div><b>Back to Kelowna</b><p>At the chalet by six, for dinner.</p></div></li>
+              </ul>
+            </div>
+          </details>
+
+          <details class="day" id="stop-departure">
+            <summary>
+              <span class="day__n">12</span>
+              <span><span class="day__name">Departure</span><span class="day__theme">Bye bye Canada</span></span>
+              <svg class="day__mark" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 7l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="day__body">
+              <ul class="plan">
+                <li><time>07:00</time><div><b>Breakfast and a short closing</b></div></li>
+                <li><time>08:30</time><div><b>To Kelowna airport</b></div></li>
+              </ul>
+            </div>
+          </details>
+
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- Photography lives inside the trip, behind the painted cover. -->
+  <div class="band band--navy">
+    <div class="wrap railed">
+      <section class="leg" aria-labelledby="gallery-title">
+        <span class="pin" aria-hidden="true"></span>
+        <div class="leg__head">
+          <h2 class="display" id="gallery-title">The valley, photographed</h2>
+          <p>The cover is painted. These are the places themselves.</p>
+        </div>
+        <ul class="gallery">
+          <li><img src="https://images.unsplash.com/photo-1618776574386-1003feb9e86f?auto=format&fit=crop&q=70&w=1400" loading="lazy" alt="Okanagan Lake seen through pines from the hills above it"></li>
+          <li><img src="https://images.unsplash.com/photo-1722932662705-4b0b8fd3605c?auto=format&fit=crop&q=70&w=800" loading="lazy" alt="Rows of vines running down to a lake below mountains"></li>
+          <li><img src="https://images.unsplash.com/photo-1684521382411-d6c086f55d95?auto=format&fit=crop&q=70&w=800" loading="lazy" alt="A green lake below a steep wooded hillside"></li>
+          <li><img src="https://images.unsplash.com/photo-1652923678850-c78d58058d12?auto=format&fit=crop&q=70&w=800" loading="lazy" alt="A wooden bench among wildflowers on a mountain meadow"></li>
+          <li><img src="https://images.unsplash.com/photo-1781212893081-95e535722281?auto=format&fit=crop&q=70&w=800" loading="lazy" alt="An old wooden railway trestle crossing a forested valley"></li>
+        </ul>
+      </section>
+    </div>
+  </div>
+
+  <div class="band band--cream">
+    <div class="wrap railed">
+      <section class="leg" aria-labelledby="incl-title">
+        <span class="pin" aria-hidden="true"></span>
+        <div class="leg__head"><h2 class="display" id="incl-title">What the price covers</h2></div>
+        <div class="two">
+          <div>
+            <h3 class="display">Included</h3>
+            <dl>
+              <div><dt>Where you sleep</dt><dd>A premium chalet on Big White Mountain. Shared private room with private bathroom, two people, Queen beds.</dd></div>
+              <div><dt>Food</dt><dd>9 breakfasts and 6 dinners prepared by the chef.</dd></div>
+              <div><dt>Getting around</dt><dd>All travel by car.</dd></div>
+              <div><dt>With you</dt><dd>Host and chef, throughout.</dd></div>
+              <div><dt>What you do</dt><dd>The boat trip, hiking on Big White, cycling Myra Canyon, Kangaroo Creek Farm, two winery tastings, Kelowna, Lake Country and Vernon, Kalamalka Lake, BX Falls, fruit picking.</dd></div>
+            </dl>
+          </div>
+          <div>
+            <h3 class="display">Not included</h3>
+            <ul class="plain">
+              <li>Return flights</li>
+              <li>Food and drink where not listed</li>
+              <li>Medical and travel insurance</li>
+              <li>Anything not listed as included</li>
+            </ul>
+            <p class="note">Paid on arrival: $3,050 MXN per person, in cash, for the shared transport fund. It covers
+              the car, fuel and parking, with receipts.</p>
+          </div>
+          <div>
+            <h3 class="display">Rooms</h3>
+            <ul class="priced">
+              <li><span>Shared private room, Queen beds</span><span class="incl">Included</span></li>
+              <li><span>Private room with a King bed</span><span>+$4,200 MXN</span></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="display">Extras</h3>
+            <ul class="priced">
+              <li><span>Chef's lunch box</span><span>about $330</span></li>
+              <li><span>Chef's picnic</span><span>about $530</span></li>
+              <li><span>Tasting at Summerhill</span><span>$224–346</span></li>
+              <li><span>Tasting at Mission Hill</span><span>about $530</span></li>
+              <li><span>Honey tasting at Planet Bee</span><span>about $122</span></li>
+              <li><span>Bike park or Pipe Mountain Coaster<small>Paid on the spot</small></span><span>$500–900</span></li>
+              <li><span>Rafting or floating<small>Paid to the operator</small></span><span>$1,400–2,200</span></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="band band--paper">
+    <div class="wrap railed">
+      <section class="leg" aria-labelledby="team-title">
+        <span class="pin" aria-hidden="true"></span>
+        <div class="leg__head"><h2 class="display" id="team-title">Who travels with you</h2></div>
+        <div class="team">
+          <div class="person">
+            <div class="frame" role="img" aria-label="Space for Federica's portrait"><span>Federica</span><span>1:1</span></div>
+            <div>
+              <p class="person__role">Host</p>
+              <h3 class="display">Federica Caglioti</h3>
+              <p>Art Director and founder of Studio Superbo. She sets the rhythm of the trip: local culture, places with
+                a real connection to nature, moments that stay in your memory. Italian and English.</p>
+            </div>
+          </div>
+          <div class="person">
+            <div class="frame" role="img" aria-label="Space for Nora's portrait"><span>Nora</span><span>1:1</span></div>
+            <div>
+              <p class="person__role">Chef</p>
+              <h3 class="display">Nora Maria Loya Ledesma</h3>
+              <p>More than fifteen years in kitchens across Spain, the United States, Mexico and Canada. Global influences,
+                local ingredients, and a guide to the valley for the meals on your own. Spanish and English.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- The decision. Everything needed to commit, nothing else: which departure,
+       how many people, which room, what is charged today, what is owed later. -->
+  <div class="band band--blue">
+    <div class="wrap railed">
+      <section class="leg" id="book" aria-labelledby="book-title">
+        <span class="pin pin--live" aria-hidden="true"></span>
+        <div class="leg__head">
+          <h2 class="display" id="book-title">Book the Okanagan Valley</h2>
+          <p>30% today holds your seat, and you have 15 days to change your mind about it. The rest is settled
+            45 days before you travel — monthly, or in one payment.</p>
+        </div>
+
+        <div class="book">
+          <form class="book__form" onsubmit="return false">
+            <!-- Options carry only what stays short in Italian, English,
+                 Spanish and German. Seat counts and surcharges live in the
+                 notes, which can wrap, so nothing that matters is ever the
+                 part that gets truncated. -->
+            <label class="field">
+              <span>Departure</span>
+              <select name="departure">
+                <option>21 Jun – 1 Jul 2027</option>
+                <option>8 – 18 Jul 2027</option>
+                <option selected>20 – 30 Jul 2027</option>
+                <option>26 Aug – 5 Sep 2027</option>
+              </select>
+              <span class="field__note">5 of 6 seats still free on this departure.</span>
+            </label>
+
+            <div class="book__pair">
+              <label class="field">
+                <span>Travellers</span>
+                <input type="number" name="guests" value="2" min="1" max="5" inputmode="numeric">
+              </label>
+              <label class="field">
+                <span>Room</span>
+                <select name="room">
+                  <option>Shared room</option>
+                  <option>Private King bed</option>
+                </select>
+                <span class="field__note">A private King room adds $4,200 MXN per person.</span>
+              </label>
+            </div>
+
+            <label class="book__terms">
+              <input type="checkbox" name="terms">
+              <span>I have read the <a href="#">terms</a> and the <a href="#">cancellation policy</a>.</span>
+            </label>
+
+            <a class="btn btn--book" href="#book">Pay the deposit — $16,140 MXN</a>
+
+            <p class="field__note">Card, Apple Pay or Google Pay, through Stripe. Off The Map never sees your
+              card details.</p>
+          </form>
+
+          <div>
+            <div class="book__sum">
+              <div class="book__line"><span>2 travellers × $26,900</span><span>$53,800 MXN</span></div>
+              <div class="book__line"><span>Shared private room</span><span>Included</span></div>
+              <div class="book__line"><span>Trip total</span><span>$53,800 MXN</span></div>
+              <div class="book__line book__line--now"><span>Deposit today</span><span>$16,140 MXN</span></div>
+              <div class="book__line"><span>Balance by 5 June 2027</span><span>$37,660 MXN</span></div>
+            </div>
+
+            <ul class="book__after" style="margin-top: 1.5rem">
+              <li>Cash on arrival: $3,050 MXN each for the shared transport fund. Not charged here.</li>
+              <li>Extras are chosen after booking, never added to this total.</li>
+              <li>If the departure does not fill, we tell you early and refund in full.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+</main>
+
+<div class="band band--navy">
+  <div class="wrap railed">
+    <footer class="leg leg--end foot" id="contact">
+      <svg class="pin pin--end" viewBox="0 0 40 40" aria-hidden="true">
+        <g transform="rotate(-8 20 20)" fill="#cfff06"><rect x="5" y="15" width="30" height="10" rx="5"/><rect x="15" y="5" width="10" height="30" rx="5"/></g>
+      </svg>
+      <h2 class="display">Questions first?</h2>
+      <p>We answer within a day.</p>
+      <p><a class="foot__mail" href="mailto:hey@offthemap.it">hey@offthemap.it</a></p>
+
+      <div class="foot__cols">
+        <div>
+          <h3>Talk to us</h3>
+          <p><a href="mailto:hey@offthemap.it">hey@offthemap.it</a></p>
+          <p>WhatsApp <a href="tel:+393520050586">+39 352 005 0586</a></p>
+          <p>Mon–Fri, 9:00–18:00 CET</p>
+        </div>
+        <div>
+          <h3>Trips</h3>
+          <ul>
+            <li><a href="trip.html">Okanagan Valley</a></li>
+            <li><a href="./#trips">All destinations</a></li>
+            <li><a href="./#how">How a trip works</a></li>
+            <li><a href="./#story">About us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Legal</h3>
+          <ul>
+            <li><a href="#">Terms and conditions</a></li>
+            <li><a href="#">Privacy policy</a></li>
+            <li><a href="#">Cancellation policy</a></li>
+            <li><a href="#">Cookie preferences</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Language</h3>
+          <ul>
+            <li><a href="#" aria-current="true">English</a></li>
+            <li><a href="#">Italiano</a></li>
+            <li><a href="#">Español</a></li>
+            <li><a href="#">Deutsch</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="foot__legal">
+        <p>Off The Map Adventure Ltd</p>
+        <dl><dt>Registered in England and Wales, company no.</dt><dd>00000000</dd></dl>
+        <p>Registered office: 00 Placeholder Street, London, XX0 0XX, United Kingdom</p>
+        <p>© 2026 Off The Map</p>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<script>
+// A map pin only sets the hash. Browsers disagree about whether that opens a
+// closed <details>, so open it here and scroll to it. Covers the first load
+// too, for a link shared into the middle of an itinerary.
+function openTargetDay() {
+  if (!location.hash || location.hash.length < 2) return
+  let target
+  try { target = document.querySelector(location.hash) } catch { return }
+  const day = target && target.closest('details')
+  if (!day) return
+  day.open = true
+  day.scrollIntoView({ block: 'start', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })
+}
+addEventListener('hashchange', openTargetDay)
+openTargetDay()
+</script>
+
+</body>
+</html>
