@@ -1,0 +1,836 @@
+/* C — Map.
+ *
+ * The signature is the dotted route from the logo pack. It runs down the left
+ * of every page and each section is a stop on it: a lime ring where you start,
+ * dots along the way, the lime cross where it ends. On the trip page the same
+ * route becomes a schematic map of the valley.
+ *
+ * Type: Fraunces with its SOFT and WONK axes, which rhyme with the brush
+ * wordmark, and Archivo, with its width axis stretched for the map voice:
+ * place names, dates, coordinates. Both SIL OFL.
+ *
+ * SURFACES. The client's note of 16 Sep: only two palette colours were in use
+ * and every section blended into the next. So the page is now a sequence of
+ * full-bleed bands, and a band declares its surface. The route, the pins, the
+ * links, the seat badge and the focus ring each read their variant from the
+ * surface rather than assuming a dark ground.
+ *
+ * The contrast rules in docs/brand.md decide which variant is legal, and they
+ * are measured, not preferred:
+ *   lime  on navy 17.5:1   on blue 10.5:1   on cream 1.01:1  -> never on light
+ *   orange + navy label 5.5:1              + white label 3.7:1 -> never white
+ *   navy  on cream 17.7:1   blue on cream 10.6:1
+ * So on a light surface the seat count becomes a filled lime chip with a navy
+ * label, which is 17.5:1, instead of lime text, which is invisible.
+ *
+ * The trip illustrations carry their own colour world — saturated sky blue,
+ * turquoise, terracotta, coral — and none of the brand hexes. They are framed
+ * by the brand, never blended into it, so they are only ever placed on navy or
+ * paper. On cream they fight the sand and pink in the paintings; on blue they
+ * fight their own ultramarine.
+ */
+
+:root {
+  --navy: #000026;
+  --paper: #f6f6f6;
+  --cream: #ffebde;
+  --lime: #cfff06;
+  --orange: #f2441f;
+  --blue: #130bb2;
+
+  --display: 'Fraunces', Georgia, serif;
+  --text: 'Archivo', system-ui, sans-serif;
+
+  --gutter: clamp(1.25rem, 4vw, 3.5rem);
+  --offset: clamp(2.25rem, 5vw, 4.5rem);
+  --page: 80rem;
+
+  --s2: 0.5rem;
+  --s3: 0.75rem;
+  --s4: 1rem;
+  --s5: 1.5rem;
+  --s6: 2.25rem;
+  --s7: 3.5rem;
+  --s8: clamp(3.5rem, 8vw, 7rem);
+
+  /* Dashes for the rail, one per trace colour. Same object as route.svg:
+     round-capped, 12 on 10 off. Two files rather than color-mix so nothing
+     depends on colour function support on the client's phone. */
+  --dash-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3' height='22'%3E%3Crect width='3' height='12' rx='1.5' fill='%23f6f6f6' fill-opacity='0.55'/%3E%3C/svg%3E");
+  --dash-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3' height='22'%3E%3Crect width='3' height='12' rx='1.5' fill='%23000026' fill-opacity='0.45'/%3E%3C/svg%3E");
+
+  /* The select's own chevron, drawn rather than left to the OS. Round caps, to
+     match the route dashes and the button pills. One per trace colour. */
+  --chev-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9'%3E%3Cpath d='M1.5 1.5L7 7l5.5-5.5' fill='none' stroke='%23f6f6f6' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  --chev-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9'%3E%3Cpath d='M1.5 1.5L7 7l5.5-5.5' fill='none' stroke='%23000026' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+/* ---- Surfaces ----------------------------------------------------------- */
+
+.band {
+  position: relative;
+  isolation: isolate;
+  background: var(--ground);
+  color: var(--fg);
+}
+
+/* Native controls — the select popup, the number spinners, a scrollbar — are
+   painted by the OS, not by us. Without this the light option text on a blue
+   band lands on the system's white popup and disappears. */
+.band--navy, .band--blue { color-scheme: dark; }
+.band--cream, .band--paper { color-scheme: light; }
+
+.band--navy {
+  --ground: #000026;
+  --fg: #f6f6f6;
+  --muted: rgba(246, 246, 246, 0.68);
+  --rule: rgba(246, 246, 246, 0.18);
+  --wash: rgba(246, 246, 246, 0.06);
+  --trace: var(--dash-light);
+  --chevron: var(--chev-light);
+  --pin-ring: rgba(246, 246, 246, 0.55);
+  --link: #cfff06;
+  --focus: #cfff06;
+  --seats-bg: transparent;
+  --seats-fg: #cfff06;
+  --seats-pad: 0;
+}
+
+.band--blue {
+  --ground: #130bb2;
+  --fg: #f6f6f6;
+  --muted: rgba(246, 246, 246, 0.74);
+  --rule: rgba(246, 246, 246, 0.26);
+  --wash: rgba(246, 246, 246, 0.10);
+  --trace: var(--dash-light);
+  --chevron: var(--chev-light);
+  --pin-ring: rgba(246, 246, 246, 0.6);
+  --link: #cfff06;
+  --focus: #cfff06;
+  --seats-bg: transparent;
+  --seats-fg: #cfff06;
+  --seats-pad: 0;
+}
+
+.band--cream {
+  --ground: #ffebde;
+  --fg: #000026;
+  --muted: rgba(0, 0, 38, 0.66);
+  --rule: rgba(0, 0, 38, 0.16);
+  --wash: rgba(0, 0, 38, 0.05);
+  --trace: var(--dash-dark);
+  --chevron: var(--chev-dark);
+  --pin-ring: rgba(0, 0, 38, 0.45);
+  --link: #130bb2;
+  --focus: #130bb2;
+  --seats-bg: #cfff06;
+  --seats-fg: #000026;
+  --seats-pad: 0.2em 0.7em;
+}
+
+.band--paper {
+  --ground: #f6f6f6;
+  --fg: #000026;
+  --muted: rgba(0, 0, 38, 0.66);
+  --rule: rgba(0, 0, 38, 0.16);
+  --wash: rgba(0, 0, 38, 0.05);
+  --trace: var(--dash-dark);
+  --chevron: var(--chev-dark);
+  --pin-ring: rgba(0, 0, 38, 0.45);
+  --link: #130bb2;
+  --focus: #130bb2;
+  --seats-bg: #cfff06;
+  --seats-fg: #000026;
+  --seats-pad: 0.2em 0.7em;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0;
+  background: var(--navy);
+  color: var(--paper);
+  font-family: var(--text);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, p, ul, ol, dl, dd, figure { margin: 0; }
+ul, ol { list-style: none; padding: 0; }
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration-color: var(--link); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+
+.display {
+  font-family: var(--display);
+  font-optical-sizing: auto;
+  font-variation-settings: 'SOFT' 100, 'WONK' 1;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.02;
+}
+/* The map voice: wide Archivo for places, dates and coordinates. */
+.wide { font-stretch: 122%; font-weight: 600; letter-spacing: 0.01em; }
+.coords { font-stretch: 122%; font-weight: 500; font-size: 0.8125rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+.wrap { max-width: var(--page); margin-inline: auto; padding-inline: var(--gutter); }
+
+/* ---- The route --------------------------------------------------------- */
+
+.railed { padding-left: calc(var(--gutter) + var(--offset)); overflow-x: clip; }
+
+/* The rail spans the whole leg, padding included, so it runs unbroken across
+   the boundary between two bands. The pin is pushed down to sit level with the
+   heading rather than with the top of the padding. */
+.leg { position: relative; padding-block: var(--s8); }
+.leg::before {
+  content: '';
+  position: absolute;
+  left: calc(-1 * var(--offset));
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  transform: translateX(-50%);
+  background: var(--trace) repeat-y;
+}
+.leg--end::before { content: none; }
+
+.pin {
+  position: absolute;
+  left: calc(-1 * var(--offset));
+  top: calc(var(--s8) + 0.45rem);
+  transform: translateX(-50%);
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 3px solid var(--pin-ring);
+  background: var(--ground);
+}
+.pin--start { width: 26px; height: 26px; top: calc(var(--s8) + 0.1rem); border: 7px solid var(--lime); }
+.pin--live { background: var(--lime); border-color: var(--lime); }
+.pin--end { width: 30px; height: 30px; top: calc(var(--s8) - 0.1rem); border: 0; background: none; border-radius: 0; }
+
+/* ---- Header ------------------------------------------------------------ */
+
+.top { display: flex; align-items: center; justify-content: space-between; gap: var(--s4); padding-block: var(--s4); }
+.top__logo img { height: 76px; width: auto; }
+.top__nav { display: flex; align-items: center; gap: var(--s5); font-stretch: 118%; font-weight: 600; font-size: 0.875rem; }
+.top__nav a { text-decoration: none; }
+.top__nav a:hover, .top__nav a[aria-current='page'] { text-decoration: underline; text-decoration-color: var(--link); }
+.top__lang, .top__menu {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 2px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.25em 0.85em;
+  cursor: pointer;
+}
+.top__menu { display: none; }
+/* Currency sits beside language as the same pill. It is a native select so it
+   works from the keyboard and on a phone's own picker; only the closed control
+   is drawn, with the band's chevron. */
+.top__cur {
+  appearance: none;
+  font: inherit;
+  color: inherit;
+  background: var(--chevron) no-repeat right 0.8em center;
+  border: 2px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.25em 2.1em 0.25em 0.85em;
+  cursor: pointer;
+}
+.top__cur:hover, .top__lang:hover { border-color: var(--fg); }
+.top__cur option { color: #000026; background: #f6f6f6; }
+.top__pref { display: flex; gap: var(--s2); }
+@media (max-width: 640px) {
+  .top__nav a { display: none; }
+  .top__menu { display: inline-block; }
+}
+
+/* ---- Buttons and marks ------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+  padding: 0.7rem 1.5rem;
+  border: 0;
+  border-radius: 999px;
+  font-family: var(--text);
+  font-stretch: 112%;
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+/* Orange never takes a white label: 3.7:1. With navy it is 5.5:1. The label
+   ships with the colour on every surface, so the hover keeps it too. */
+.btn--book { background: var(--orange); color: var(--navy); }
+.btn--book:hover { background: var(--lime); color: var(--navy); }
+.btn--line { background: transparent; color: var(--fg); box-shadow: inset 0 0 0 2px var(--rule); }
+.btn--line:hover { box-shadow: inset 0 0 0 2px var(--fg); }
+
+/* Seats left. Lime text where lime is legible, a filled lime chip where it is
+   not — same mark, same meaning, 17.5:1 either way. */
+.seats {
+  display: inline-block;
+  font-weight: 600;
+  color: var(--seats-fg);
+  background: var(--seats-bg);
+  padding: var(--seats-pad);
+  border-radius: 999px;
+}
+.seats--full { color: var(--fg); background: transparent; padding: 0; }
+
+/* ---- Section heads ----------------------------------------------------- */
+
+.leg__head { display: grid; gap: var(--s3); margin-bottom: var(--s6); max-width: 46rem; }
+.leg__head h2 { font-size: clamp(2.1rem, 4.4vw, 3.75rem); }
+.leg__head p { color: var(--muted); max-width: 52ch; }
+
+/* ---- Home: hero -------------------------------------------------------- */
+
+.hero { display: grid; gap: var(--s6); padding-top: var(--s6); }
+.hero__text { position: relative; display: grid; gap: var(--s5); align-content: start; }
+.contours { position: absolute; inset: -4rem -2rem auto auto; width: min(44rem, 120%); height: auto; pointer-events: none; z-index: -1; }
+.hero h1 { font-size: clamp(2.9rem, 7vw, 6.5rem); max-width: 12ch; }
+.hero__lede { font-size: clamp(1.125rem, 1.6vw, 1.3125rem); max-width: 40ch; color: var(--muted); }
+.hero__act { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s4) var(--s5); }
+.hero .pin--start { top: calc(var(--s8) + var(--s6) + 0.1rem); }
+
+/* The Lottie mounts here. Until it arrives the route motif holds the slot and
+   carries the one moment of motion on the page. The client's note of 22 Sep:
+   one pass on load was over too fast, so it now loops, as a journey — the
+   route draws itself from the cross to the ring, the ring lands, the trail
+   holds a beat, then clears from where it started, as if someone walked it.
+   A mask draws it, not the dashes themselves, so the dashes never slide.
+   Reduced motion gets the finished route, still. When the animation lands it
+   takes this over and the route stops moving — two things moving compete. */
+.hero__anim { position: relative; display: grid; place-items: center; padding: var(--s5); }
+.hero__anim svg { width: min(26rem, 100%); height: auto; overflow: visible; }
+.hero__route { stroke-dasharray: 16 15; }
+.hero__end { transform-box: fill-box; transform-origin: center; }
+@media (prefers-reduced-motion: no-preference) {
+  .hero__draw { stroke-dasharray: 1 1; animation: route-walk 7s cubic-bezier(0.45, 0, 0.3, 1) infinite; }
+  .hero__end { animation: route-land 7s ease-out infinite; }
+  @keyframes route-walk {
+    0%        { stroke-dashoffset: 1; }
+    42%, 72%  { stroke-dashoffset: 0; }
+    96%, 100% { stroke-dashoffset: -1; }
+  }
+  @keyframes route-land {
+    0%, 38%   { transform: scale(0.55); opacity: 0.35; }
+    46%       { transform: scale(1.12); opacity: 1; }
+    52%, 90%  { transform: scale(1); opacity: 1; }
+    100%      { transform: scale(0.55); opacity: 0.35; }
+  }
+}
+@media (min-width: 960px) {
+  .hero { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--s7); align-items: center; }
+}
+
+/* ---- Home: our story --------------------------------------------------- */
+
+.story { display: grid; gap: var(--s6); }
+@media (min-width: 900px) { .story { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: var(--s8); align-items: start; } }
+.story h2 { font-size: clamp(2.1rem, 4.4vw, 3.75rem); }
+.story__body { display: grid; gap: var(--s4); }
+.story__body p { max-width: 58ch; }
+.story__body p:first-child { font-size: clamp(1.125rem, 1.6vw, 1.3125rem); }
+.story__body p + p { color: var(--muted); }
+/* The slot for the animated logo her designer is drawing. Same placeholder
+   frame as the portraits, so an empty slot reads as a space held on purpose. */
+.story__art { max-width: min(20rem, 62%); margin-top: var(--s6); }
+
+/* ---- Home: what makes a trip different --------------------------------- */
+
+/* Not a sequence, so it takes no numbers. Each one is a claim that can be
+   checked against the trip page, and the lime rule under the heading is the
+   same marker the pins use. */
+.marks { display: grid; gap: var(--s6); }
+@media (min-width: 720px) { .marks { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s7) var(--s6); } }
+@media (min-width: 1100px) { .marks { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.marks h3 { font-family: var(--display); font-variation-settings: 'SOFT' 100, 'WONK' 1; font-weight: 400; font-size: 1.75rem; line-height: 1.1; }
+.marks h3::after { content: ''; display: block; width: 2.5rem; height: 3px; border-radius: 2px; background: var(--lime); margin-block: var(--s3) var(--s3); }
+.marks p { color: var(--muted); }
+
+/* ---- Home: destinations ------------------------------------------------ */
+
+/* The covers are illustrations, each in its own style, and the brief is that
+   they keep diverging. So the card is a frame and a type lockup, never a
+   treatment: no shadow, no tint, no hover zoom, nothing that would sit between
+   two different paintings and try to make them match. Square, because the
+   artwork is square. */
+.covers { display: grid; gap: var(--s6) var(--s5); grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (min-width: 900px) { .covers { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s7) var(--s6); } }
+
+.cover a { display: grid; gap: var(--s3); text-decoration: none; }
+.cover__art {
+  position: relative;
+  aspect-ratio: 1;
+  background: var(--wash);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.cover__art img { width: 100%; height: 100%; object-fit: cover; }
+.cover a:hover .cover__art { box-shadow: inset 0 0 0 3px var(--fg); }
+
+/* A destination with no cover and no dates yet does not get a full card. Three
+   empty squares next to three paintings reads as a half-built page; a compact
+   entry on a rule reads as what it is — announced, not yet on sale. The grid
+   is deliberately uneven, and the unevenness is the information. */
+.cover--soon a { gap: var(--s2); padding-top: var(--s3); border-top: 1px solid var(--rule); }
+/* In the two-column phone grid a short entry beside a tall card leaves it
+   stranded at the top of a tall row. Below the three-column breakpoint the
+   announced destinations take the full width and read as a list. */
+@media (max-width: 899px) { .cover--soon { grid-column: 1 / -1; } }
+
+.cover h3 {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s2);
+  font-stretch: 118%;
+  font-weight: 600;
+  font-size: 1.0625rem;
+  line-height: 1.25;
+}
+/* A filled lime pin where departures are open, a hollow ring where the place
+   exists but the dates do not. The same two states as the map. It aligns to
+   the first line, not to the middle of a title that wrapped. */
+.cover h3::before {
+  content: '';
+  flex: none;
+  width: 11px;
+  height: 11px;
+  margin-top: 0.42em;
+  border-radius: 50%;
+  border: 2px solid var(--fg);
+}
+.cover--open h3::before { background: var(--lime); border-color: var(--lime); }
+.cover a:hover h3 { text-decoration: underline; text-decoration-color: var(--link); }
+.cover p { color: var(--muted); font-size: 0.875rem; }
+.cover .dates { margin-top: var(--s3); }
+
+/* ---- Departure dates as pills ------------------------------------------ */
+
+/* The client's note of 22 Sep: a count ("4 departures") made people click to
+   find out when. So the dates themselves are the entry point, each one a link
+   straight into booking with that departure chosen.
+   Lime chip, navy label: 17.5:1 on every surface, and lime already means "a
+   stop you can go to" — the pin, the seat count. Orange stays the one action
+   colour, the Book button, so the pills never compete with it.
+   A full departure is outlined and says so; it still leads to the waitlist. */
+.dates { display: flex; flex-wrap: wrap; gap: var(--s2); }
+.dates a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  min-height: 2.25rem;
+  padding: 0.3em 0.85em;
+  border-radius: 999px;
+  background: var(--lime);
+  color: var(--navy);
+  font-stretch: 118%;
+  font-weight: 600;
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  text-decoration: none;
+}
+.dates a:hover { background: var(--fg); color: var(--ground); }
+.dates a.is-full { background: transparent; color: var(--muted); box-shadow: inset 0 0 0 2px var(--rule); }
+.dates a.is-full:hover { color: var(--fg); box-shadow: inset 0 0 0 2px var(--fg); }
+.dates small { font-size: inherit; font-weight: 500; opacity: 0.72; }
+
+/* ---- Departure board --------------------------------------------------- */
+
+.board li {
+  display: grid;
+  gap: var(--s2) var(--s5);
+  padding-block: var(--s4);
+  border-top: 1px solid var(--rule);
+}
+.board li:last-child { border-bottom: 1px solid var(--rule); }
+.board__when { font-stretch: 125%; font-weight: 700; font-size: clamp(1.25rem, 2.2vw, 1.625rem); line-height: 1.15; font-variant-numeric: tabular-nums; }
+.board__money { color: var(--muted); font-size: 0.9375rem; }
+.board .btn { justify-self: start; }
+@media (min-width: 720px) {
+  .board li { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) auto; align-items: center; }
+  .board__when { grid-row: 1 / 3; }
+  .board .btn { grid-column: 3; grid-row: 1 / 3; justify-self: end; }
+}
+.board__seats { justify-self: start; }
+
+.now { display: grid; gap: var(--s6); }
+@media (min-width: 960px) { .now { grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: var(--s7); align-items: start; } }
+.now__map { background: var(--wash); border-radius: 2px; padding: var(--s4); }
+.now__map svg { width: 100%; height: auto; }
+.now__map figcaption { font-size: 0.8125rem; color: var(--muted); margin-top: var(--s3); }
+
+/* ---- Home: how it works ------------------------------------------------ */
+
+/* This one IS a sequence — deposit, balance, departure — so it is numbered and
+   the rail runs through it. On the blue band the numbers are lime. */
+.steps { display: grid; gap: var(--s6); counter-reset: step; }
+@media (min-width: 960px) { .steps { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--s5); } }
+.steps li { display: grid; gap: var(--s2); align-content: start; padding-top: var(--s4); border-top: 1px solid var(--rule); counter-increment: step; }
+.steps li::before {
+  content: counter(step);
+  font-stretch: 125%;
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: var(--lime);
+  font-variant-numeric: tabular-nums;
+}
+.steps h3 { font-family: var(--display); font-variation-settings: 'SOFT' 100, 'WONK' 1; font-weight: 400; font-size: 1.625rem; line-height: 1.15; }
+.steps p { color: var(--muted); }
+
+/* ---- Host and team ----------------------------------------------------- */
+
+.frame {
+  display: grid;
+  place-content: center;
+  gap: 0.2rem;
+  aspect-ratio: 1;
+  border: 1px solid var(--rule);
+  background: var(--wash);
+  color: var(--muted);
+  text-align: center;
+  font-size: 0.8125rem;
+  border-radius: 2px;
+}
+.host { display: grid; gap: var(--s6); align-items: center; }
+.host .frame { max-width: 22rem; }
+.host h2 { font-size: clamp(2.1rem, 4.4vw, 3.75rem); margin-bottom: var(--s4); }
+.host p { max-width: 52ch; color: var(--muted); }
+.host p + p { margin-top: var(--s4); }
+@media (min-width: 960px) { .host { grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: var(--s7); } }
+
+/* ---- Footer ------------------------------------------------------------ */
+
+.foot h2 { font-size: clamp(2.1rem, 4.4vw, 3.75rem); margin-bottom: var(--s3); }
+.foot__mail { font-family: var(--display); font-variation-settings: 'SOFT' 100, 'WONK' 1; font-size: clamp(1.75rem, 4vw, 3rem); line-height: 1.1; overflow-wrap: anywhere; }
+
+.foot__cols {
+  display: grid;
+  gap: var(--s6);
+  margin-top: var(--s7);
+  padding-top: var(--s6);
+  border-top: 1px solid var(--rule);
+}
+@media (min-width: 700px) { .foot__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s6) var(--s7); } }
+@media (min-width: 1000px) { .foot__cols { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.foot__cols h3 { font-stretch: 118%; font-weight: 600; font-size: 0.875rem; margin-bottom: var(--s3); color: var(--fg); }
+.foot__cols li + li, .foot__cols p + p { margin-top: var(--s2); }
+.foot__cols a { text-decoration: none; }
+.foot__cols a:hover { text-decoration: underline; text-decoration-color: var(--link); }
+.foot__cols, .foot__cols a { color: var(--muted); font-size: 0.9375rem; }
+
+.foot__social { display: flex; gap: var(--s3); margin-top: var(--s4); }
+.foot__social a {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 2px var(--rule);
+  color: var(--fg);
+}
+.foot__social a:hover { box-shadow: inset 0 0 0 2px var(--link); color: var(--link); }
+.foot__social svg { width: 1.25rem; height: 1.25rem; }
+
+/* Legal and Language are lists nobody reads top to bottom, so on a phone they
+   fold away (the client's note of 22 Sep: the footer was very long). On wider
+   screens there is room, so a script opens them and the summary stops acting
+   as a control. Native <details>: keyboard and screen-reader correct. */
+.foot__acc > summary { list-style: none; cursor: pointer; }
+.foot__acc > summary::-webkit-details-marker { display: none; }
+.foot__acc > summary h3 { display: flex; justify-content: space-between; align-items: center; margin: 0; }
+.foot__acc > summary h3::after {
+  content: '';
+  width: 14px;
+  height: 9px;
+  background: var(--chevron) no-repeat center;
+  transition: transform 0.18s ease;
+}
+.foot__acc[open] > summary h3::after { transform: rotate(180deg); }
+.foot__acc ul { margin-top: var(--s3); }
+@media (prefers-reduced-motion: reduce) { .foot__acc > summary h3::after { transition: none; } }
+@media (max-width: 699px) {
+  .foot__cols { gap: 0; }
+  .foot__cols > div { padding-bottom: var(--s5); }
+  .foot__acc { border-top: 1px solid var(--rule); }
+  .foot__acc > summary { padding-block: var(--s4); }
+  .foot__acc ul { margin-top: 0; padding-bottom: var(--s4); }
+}
+@media (min-width: 700px) {
+  .foot__acc > summary { cursor: default; }
+  .foot__acc > summary h3 { margin-bottom: var(--s3); }
+  .foot__acc > summary h3::after { content: none; }
+  .foot__acc ul { margin-top: 0; }
+}
+
+/* Registered details are a legal statement, not navigation: they sit apart,
+   in the smallest legible size, and never compete with the contact routes. */
+.foot__legal {
+  margin-top: var(--s6);
+  padding-top: var(--s5);
+  border-top: 1px solid var(--rule);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2) var(--s5);
+  color: var(--muted);
+  font-size: 0.8125rem;
+}
+.foot__legal dl { display: flex; flex-wrap: wrap; gap: 0 0.4em; }
+.foot__legal dt::after { content: ''; }
+.foot__legal dd { font-variant-numeric: tabular-nums; }
+
+/* ---- Trip: hero -------------------------------------------------------- */
+
+/* Framed, not bled. The covers arrived at 1254px square, short of the 2048px
+   minimum in docs/brand.md, so a full-width hero would be upscaled — and a
+   painting wants a frame anyway rather than being cut off by the viewport. */
+.trip-hero { display: grid; gap: var(--s6); padding-top: var(--s6); }
+@media (min-width: 900px) { .trip-hero { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: var(--s7); align-items: center; } }
+.trip-hero__art { aspect-ratio: 1; border-radius: 2px; overflow: hidden; background: var(--wash); }
+.trip-hero__art img { width: 100%; height: 100%; object-fit: cover; }
+.trip-hero h1 { font-size: clamp(2.6rem, 7vw, 5.5rem); line-height: 0.98; margin-block: var(--s3) var(--s4); }
+.trip-hero__sum { font-size: clamp(1.125rem, 1.8vw, 1.4rem); line-height: 1.45; max-width: 36ch; }
+.trip-hero .pin--start { top: calc(var(--s8) + var(--s6) + 0.1rem); }
+
+.facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s4) var(--s5); margin-top: var(--s6); }
+@media (min-width: 900px) { .facts { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.facts > div { padding-top: var(--s3); border-top: 1px solid var(--rule); }
+.facts dt { font-size: 0.8125rem; color: var(--muted); }
+.facts dd { font-stretch: 122%; font-weight: 600; font-size: 1.125rem; }
+.trip-body { display: grid; gap: var(--s5); margin-top: var(--s7); }
+.trip-body p { max-width: 62ch; color: var(--muted); }
+.trip-body p:first-child { color: var(--fg); }
+
+/* ---- Trip: the valley map ---------------------------------------------- */
+
+.valley { display: grid; gap: var(--s6); }
+@media (min-width: 960px) { .valley { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: var(--s7); align-items: start; } }
+.valley__map { background: var(--wash); border-radius: 2px; padding: clamp(0.75rem, 2vw, 1.5rem); }
+.valley__map svg { width: 100%; height: auto; max-height: 82vh; }
+.map-pin { cursor: pointer; }
+.map-pin:hover circle, .map-pin:focus-visible circle { stroke: var(--paper); stroke-width: 3; }
+.map-pin:focus-visible { outline: none; }
+.map-label { font-family: var(--text); font-stretch: 118%; font-weight: 600; font-size: 12.5px; fill: var(--paper); }
+.map-note { font-family: var(--text); font-size: 11px; fill: rgba(246, 246, 246, 0.68); font-style: italic; }
+.valley__list ol { display: grid; }
+.valley__list li a {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--s4);
+  padding-block: var(--s3);
+  border-top: 1px solid var(--rule);
+  text-decoration: none;
+}
+.valley__list li:last-child a { border-bottom: 1px solid var(--rule); }
+.valley__list li a:hover .wide { text-decoration: underline; text-decoration-color: var(--link); }
+.valley__list li span:last-child { color: var(--muted); font-size: 0.875rem; text-align: right; }
+
+/* ---- Trip: the itinerary, day by day ----------------------------------- */
+
+/* Twelve days on one scroll was already long; the client sells trips of up to
+   fifteen. So each day is a native <details>. Native because it is keyboard
+   and screen-reader correct with no script, and because the map pins only have
+   to set location.hash for the right day to open. */
+.days { display: grid; }
+.day {
+  border-top: 1px solid var(--rule);
+  scroll-margin-top: 4.5rem;
+}
+.days .day:last-child { border-bottom: 1px solid var(--rule); }
+
+.day > summary {
+  display: grid;
+  grid-template-columns: 2.25rem minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: var(--s3);
+  padding-block: var(--s4);
+  cursor: pointer;
+  list-style: none;
+}
+.day > summary::-webkit-details-marker { display: none; }
+.day__n { font-stretch: 125%; font-weight: 700; font-size: 0.8125rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.day__name { font-family: var(--display); font-variation-settings: 'SOFT' 100, 'WONK' 1; font-weight: 400; font-size: clamp(1.4rem, 3vw, 1.9rem); line-height: 1.1; }
+.day__theme { display: block; font-family: var(--text); font-size: 0.875rem; color: var(--muted); margin-top: 0.2rem; }
+.day > summary:hover .day__name { text-decoration: underline; text-decoration-color: var(--link); }
+
+/* The chevron is the only thing on the page that rotates, and it rotates
+   because the panel it points at opened. */
+.day__mark { flex: none; width: 1.1rem; height: 1.1rem; align-self: center; transition: transform 0.18s ease; }
+.day[open] .day__mark { transform: rotate(180deg); }
+@media (prefers-reduced-motion: reduce) { .day__mark { transition: none; } }
+
+.day__body { display: grid; gap: var(--s5); padding-bottom: var(--s6); }
+@media (min-width: 960px) { .day__body--photo { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: var(--s7); align-items: start; } }
+.day__body img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 2px; }
+
+.plan { display: grid; gap: var(--s2); }
+.plan li { display: grid; grid-template-columns: 3.25rem minmax(0, 1fr); gap: var(--s3); }
+.plan time, .plan .t { font-variant-numeric: tabular-nums; color: var(--muted); font-size: 0.9375rem; padding-top: 0.08rem; }
+.plan b { font-weight: 600; }
+.plan p { color: var(--muted); font-size: 0.9375rem; }
+.day__note { margin-top: var(--s4); padding: var(--s3) var(--s4); background: var(--wash); border-radius: 2px; font-size: 0.9375rem; }
+
+/* ---- Trip: gallery ----------------------------------------------------- */
+
+/* Illustration outside, photography inside — the client's own positioning.
+   The photographs are the evidence behind the painting. */
+.gallery { display: grid; gap: var(--s4); grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (min-width: 900px) { .gallery { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--s5); } }
+.gallery img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 2px; }
+.gallery li:first-child { grid-column: span 2; }
+@media (min-width: 900px) { .gallery li:first-child img { aspect-ratio: 8 / 3; } }
+
+/* ---- Trip: lists ------------------------------------------------------- */
+
+.two { display: grid; gap: var(--s7); }
+@media (min-width: 900px) { .two { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.two h3 { font-size: clamp(1.625rem, 2.6vw, 2.25rem); margin-bottom: var(--s4); }
+.two dl { display: grid; gap: var(--s4); }
+.two dt { font-stretch: 118%; font-weight: 600; }
+.two dd { color: var(--muted); }
+.two ul.plain li { padding-block: var(--s2); border-top: 1px solid var(--rule); color: var(--muted); }
+.two .note { margin-top: var(--s5); padding: var(--s4); background: var(--wash); border-radius: 2px; }
+/* The list is the grid, not each row, so every price shares one column and the
+   figures line up down the page instead of landing wherever its label ended.
+   Rows were flex before, which also stretched the lime chip to the height of a
+   two-line label and turned a pill into a lozenge. */
+.priced { display: grid; grid-template-columns: minmax(0, 1fr) max-content; }
+.priced li { display: contents; }
+.priced li > span { padding-block: var(--s3); border-top: 1px solid var(--rule); }
+.priced li > span:first-child { padding-right: var(--s5); }
+.priced li > span:last-child {
+  text-align: right;
+  font-stretch: 112%;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.priced small { display: block; color: var(--muted); font-size: 0.8125rem; font-stretch: 100%; font-weight: 400; }
+/* "Included" is the quietest thing in this column: it says the row costs
+   nothing. It was a filled lime chip, which made the one row carrying no
+   number the loudest on the block and left the real price whispering beside
+   it. Lime is also the marker — a pin, a stop, a seat count — and a room is
+   none of those, so this was borrowing --seats-* for a role it never had.
+   The word alone is the signal; the emphasis belongs to money. */
+.priced .incl { color: var(--muted); }
+
+.team { display: grid; gap: var(--s7); }
+@media (min-width: 900px) { .team { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.person { display: grid; grid-template-columns: 7rem minmax(0, 1fr); gap: var(--s5); align-items: start; }
+@media (min-width: 900px) { .person { grid-template-columns: 10rem minmax(0, 1fr); } }
+.person .frame { font-size: 0.6875rem; padding: 0.25rem; }
+.person__role { color: var(--muted); font-stretch: 118%; font-size: 0.875rem; }
+.person h3 { font-size: 1.75rem; margin-bottom: var(--s2); }
+.person p:last-child { color: var(--muted); }
+
+/* ---- Trip: the booking block ------------------------------------------- */
+
+/* The decision sits straight after the cover (the client's note of 22 Sep),
+   and the whole width goes to it. Everything needed to commit is here and nothing else is: which
+   departure, how many people, which room, what leaves the account today, and
+   what is owed later. The deposit is stated as money, not as "30%". */
+.book { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s6); }
+@media (min-width: 960px) { .book { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--s7); align-items: start; } }
+
+.book__form { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s5); }
+
+/* A grid item refuses to shrink below its own min-content unless told to, and
+   a <select>'s min-content is its longest option. "Shared private room — included"
+   was therefore pushing the control wider than the column and getting sliced
+   off by the rail's overflow clip — no sideways scroll to give it away.
+   min-width:0 alone is not enough: an implicit `auto` track is measured against
+   the content's max-content, and a percentage width counts as auto while that
+   is worked out, so the longest option still sized the column. Every grid here
+   therefore states minmax(0, 1fr) and the track stops asking the content. */
+.book__form, .book__pair, .field, .field select, .field input { min-width: 0; }
+
+.field { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s2); }
+.field > span { font-stretch: 118%; font-weight: 600; font-size: 0.875rem; }
+.field select, .field input {
+  font: inherit;
+  font-stretch: 112%;
+  color: var(--fg);
+  background: var(--wash);
+  border: 2px solid var(--rule);
+  border-radius: 2px;
+  padding: 0.75rem var(--s4);
+  min-height: 3rem;
+  width: 100%;
+  max-width: 100%;
+}
+.field select:hover, .field input:hover { border-color: var(--fg); }
+
+/* The closed control is what people look at nearly all the time, so it gets a
+   drawn chevron in the surface's own ink and room reserved for it, rather than
+   whatever arrow the OS would have supplied. */
+.field select {
+  appearance: none;
+  padding-right: 2.9rem;
+  background-image: var(--chevron);
+  background-repeat: no-repeat;
+  background-position: right var(--s4) center;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+/* The option list is drawn by the OS, outside the page, so it cannot inherit
+   the band. Stating both colours keeps light option text off a white popup. */
+.field option { color: #000026; background: #f6f6f6; }
+
+/* No appearance:base-select here. Chrome reports CSS.supports() true for it
+   while still drawing the OS popup, so the @supports branch took effect, swapped
+   the drawn chevron for a ::picker-icon that never rendered, and left the
+   control with no arrow at all. A feature query that lies is worse than none. */
+
+.field__note { font-size: 0.8125rem; color: var(--muted); }
+.book__pair { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s5); }
+@media (min-width: 560px) { .book__pair { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+
+.book__sum { display: grid; gap: var(--s3); padding: var(--s5); background: var(--wash); border-radius: 2px; }
+.book__line { display: flex; justify-content: space-between; gap: var(--s4); }
+.book__line span:last-child { font-stretch: 118%; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; text-align: right; }
+.book__line--now {
+  padding-top: var(--s3);
+  border-top: 1px solid var(--rule);
+  font-stretch: 118%;
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+.book__line--now span:last-child { font-size: 1.25rem; }
+.book__terms { display: flex; align-items: start; gap: var(--s3); font-size: 0.9375rem; color: var(--muted); }
+.book__terms input { flex: none; width: 1.35rem; height: 1.35rem; margin-top: 0.1rem; accent-color: var(--orange); }
+.book .btn { width: 100%; }
+.book__after { display: grid; gap: var(--s2); font-size: 0.875rem; color: var(--muted); }
+.book__after li { display: grid; grid-template-columns: 1rem minmax(0, 1fr); gap: var(--s3); }
+.book__after li::before { content: ''; width: 9px; height: 9px; margin-top: 0.45rem; border-radius: 50%; background: var(--lime); }
+
+/* ---- Trip: departures, up front ---------------------------------------- */
+
+/* The client's note of 22 Sep: the dates were the last thing on the page,
+   inside the booking box. They are the first question anyone has, so they sit
+   in the hero, under the facts, and each one jumps to booking with it chosen. */
+.trip-when { margin-top: var(--s5); display: grid; gap: var(--s3); }
+.trip-when h2 { font-stretch: 118%; font-weight: 600; font-size: 0.875rem; }
+.trip-when .dates a { font-size: 0.9375rem; min-height: 2.75rem; padding-inline: 1em; }
+
+/* ---- Currency ---------------------------------------------------------- */
+
+/* Another currency is a reading aid: the trip is priced and charged in its
+   own currency. Where an amount is what gets charged, the original stays and
+   the conversion sits under it, marked as approximate. */
+.approx { display: block; font-size: 0.8125rem; font-weight: 400; font-stretch: 100%; color: var(--muted); }
+.approx:empty { display: none; }

@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+<head><meta name="robots" content="noindex">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Off The Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..700,0..100,0..1&family=Archivo:wdth,wght@62..125,400..800&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+<div class="band band--navy">
+  <header class="wrap top">
+    <a class="top__logo" href="./"><img src="logos/logo-light.png" alt="Off The Map, home" width="480" height="565"></a>
+    <nav class="top__nav" aria-label="Main">
+      <a href="trip.html">Trips</a>
+      <a href="#story">About</a>
+      <a href="#contact">Contact</a>
+      <span class="top__pref">
+        <button class="top__lang" type="button">EN</button>
+        <select class="top__cur" aria-label="Show prices in">
+          <option value="MXN">MXN</option>
+          <option value="USD">USD</option>
+          <option value="EUR">EUR</option>
+        </select>
+      </span>
+      <button class="top__menu" type="button">Menu</button>
+    </nav>
+  </header>
+</div>
+
+<main>
+
+  <!-- 1. Who we are. No destination, no coordinates: the page no longer opens
+       on one valley. -->
+  <div class="band band--navy">
+    <div class="wrap railed">
+      <section class="leg hero">
+        <span class="pin pin--start" aria-hidden="true"></span>
+        <div class="hero__text">
+          <svg class="contours" viewBox="0 0 600 420" aria-hidden="true">
+            <g fill="none" stroke="#f6f6f6" stroke-opacity="0.14" stroke-width="1.2">
+              <path d="M300 150C340 140 370 170 360 205C352 238 310 250 280 236C250 222 250 175 300 150Z"/>
+              <path d="M298 118C360 104 408 150 398 206C390 262 320 284 268 266C220 250 214 190 244 150C258 132 276 122 298 118Z"/>
+              <path d="M292 84C378 66 446 124 438 208C430 290 340 322 256 300C186 282 170 206 206 148C226 114 256 92 292 84Z"/>
+              <path d="M286 48C396 26 488 100 478 212C468 318 356 360 244 334C152 312 126 216 170 142C196 96 238 58 286 48Z"/>
+              <path d="M280 12C414 -12 530 76 520 216C510 348 372 400 232 368C118 342 80 222 134 132C166 78 222 24 280 12Z"/>
+              <path d="M270 -28C430 -56 572 50 562 220C552 380 388 440 218 404C84 376 34 228 98 120C136 58 204 -14 270 -28Z"/>
+              <path d="M470 300C500 290 520 312 512 336C504 360 470 364 456 344C444 326 448 306 470 300Z"/>
+              <path d="M468 268C520 252 556 292 546 340C536 386 476 396 444 368C416 344 424 282 468 268Z"/>
+            </g>
+          </svg>
+          <h1 class="display">Places most people drive past.</h1>
+          <p class="hero__lede">Six to eight travellers, fixed dates, and a host and a chef who stay for the
+            whole trip. We run a handful of journeys a year and we are on every one of them.</p>
+          <div class="hero__act">
+            <a class="btn btn--book" href="#trips">See where we go</a>
+            <a href="#how">How a trip works</a>
+          </div>
+        </div>
+
+        <!-- The illustrated animation mounts here. Until it lands, the route
+             motif holds the slot and carries the page's one moment of motion. -->
+        <div class="hero__anim" id="landing-animation">
+          <svg viewBox="0 0 300 215" role="img" aria-label="A dotted route running from a start marker to a destination">
+            <g transform="rotate(-8 238 28)">
+              <rect x="223" y="23" width="30" height="10" rx="5" fill="#cfff06"/>
+              <rect x="233" y="13" width="10" height="30" rx="5" fill="#cfff06"/>
+            </g>
+            <mask id="route-walk" maskUnits="userSpaceOnUse" x="0" y="0" width="300" height="215">
+              <path class="hero__draw" d="M238 48c0 26-26 34-50 36s-54-4-68 14 -2 32 22 36 46 2 56 16 -6 26-28 31" pathLength="1"
+                    fill="none" stroke="#fff" stroke-width="16" stroke-linecap="round"/>
+            </mask>
+            <path class="hero__route" mask="url(#route-walk)"
+                  d="M238 48c0 26-26 34-50 36s-54-4-68 14 -2 32 22 36 46 2 56 16 -6 26-28 31"
+                  fill="none" stroke="#f6f6f6" stroke-width="7" stroke-linecap="round"/>
+            <circle class="hero__end" cx="150" cy="182" r="13" fill="none" stroke="#cfff06" stroke-width="9"/>
+          </svg>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- 2. Our story. -->
+  <div class="band band--cream">
+    <div class="wrap railed">
+      <section class="leg story" id="story">
+        <span class="pin" aria-hidden="true"></span>
+        <div>
+          <h2 class="display">Our story</h2>
+          <!-- Mount point for the animated logo: the mark draws itself along the
+               dotted route, in the same motion language as the hero. -->
+          <div class="frame story__art" role="img" aria-label="Space for the animated logo"><span>Animated logo</span><span>SVG or Lottie, 1:1</span></div>
+        </div>
+        <div class="story__body">
+          <p>Off The Map started with a frustration: the best part of a place is never the part
+            you are sold. The view everyone photographs is rarely the one worth flying for.</p>
+          <p>Federica Caglioti is an Art Director and the founder of Studio Superbo in Rome. She
+            spent years travelling for work, always arriving somewhere remarkable and leaving before she had
+            understood it. So she began putting together the trips she wanted to take herself: long enough to
+            settle into a place, small enough that everyone fits around one table, and built around the people
+            who actually live there.</p>
+          <p>There is no coach, no clipboard and no group of forty. There is a house, a chef, a
+            route, and six to eight people who chose the same week.</p>
+          <p class="field__note">Placeholder copy, ours, pending Federica's own words in IT, EN, ES and DE.</p>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- 3. What makes the trips different. Values, not booking mechanics —
+       those come later, under "How a trip works". -->
+  <div class="band band--navy">
+    <div class="wrap railed">
+      <section class="leg" aria-labelledby="marks-title">
+        <span class="pin" aria-hidden="true"></span>
+        <div class="leg__head">
+          <h2 class="display" id="marks-title">What makes our trips different</h2>
+        </div>
+        <div class="marks">
+          <div>
+            <h3>Six to eight people</h3>
+            <p>Small enough to share one table at dinner, and to change the plan on the day without a vote.</p>
+          </div>
+          <div>
+            <h3>A host and a chef</h3>
+            <p>Federica travels with you, and so does the chef. From the first evening to the airport, not
+              just for the welcome drink.</p>
+          </div>
+          <div>
+            <h3>Slow, on purpose</h3>
+            <p>One base for most of the trip. Days that end where they started, so nobody spends the week
+              packing a suitcase.</p>
+          </div>
+          <div>
+            <h3>Painted, then photographed</h3>
+            <p>Every destination gets its own illustrated cover. The photographs are inside, where they
+              belong — as evidence, not as the sales pitch.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- 4. Where we go. Paper, because the covers carry their own colour world
+       and need a neutral wall, not a brand colour to fight. -->
+  <div class="band band--paper">
+    <div class="wrap railed">
+      <section class="leg" id="trips" aria-labelledby="trips-title">
+        <span class="pin" aria-hidden="true"></span>
+        <div class="leg__head">
+          <h2 class="display" id="trips-title">Where we go</h2>
+          <p>Six destinations. One has dates on sale for 2027; the rest are being confirmed, one at a time.</p>
+        </div>
+        <ul class="covers">
+          <li class="cover cover--open">
+            <a href="trip.html">
+              <span class="cover__art">
+                <img src="img/okanagan-lake-1-700.webp"
+                     srcset="img/okanagan-lake-1-700.webp 700w, img/okanagan-lake-1-1254.webp 1254w"
+                     sizes="(min-width: 900px) 30vw, 44vw" width="700" height="700" loading="lazy"
+                     alt="Illustration: red canoes on a turquoise lake below pink mountains">
+              </span>
+              <h3>Okanagan Valley, Canada</h3>
+            </a>
+            <ul class="dates" aria-label="Departures with seats, 2027">
+              <li><a href="trip.html?departure=2027-06-21#book">21 Jun – 1 Jul</a></li>
+              <li><a href="trip.html?departure=2027-07-20#book">20 – 30 Jul</a></li>
+              <li><a href="trip.html?departure=2027-08-26#book">26 Aug – 5 Sep</a></li>
+            </ul>
+          </li>
+          <li class="cover">
+            <a href="trip.html">
+              <span class="cover__art">
+                <img src="img/bc-biking-2-700.webp"
+                     srcset="img/bc-biking-2-700.webp 700w, img/bc-biking-2-1254.webp 1254w"
+                     sizes="(min-width: 900px) 30vw, 44vw" width="700" height="700" loading="lazy"
+                     alt="Illustration: two riders on a forest singletrack below a snow-capped peak">
+              </span>
+              <h3>British Columbia, Canada</h3>
+              <p>Dates being confirmed</p>
+            </a>
+          </li>
+          <li class="cover">
+            <a href="trip.html">
+              <span class="cover__art">
+                <img src="img/italy-south-3-700.webp"
+                     srcset="img/italy-south-3-700.webp 700w, img/italy-south-3-1254.webp 1254w"
+                     sizes="(min-width: 900px) 30vw, 44vw" width="700" height="700" loading="lazy"
+                     alt="Illustration: a headland town of terracotta roofs above a deep blue sea">
+              </span>
+              <h3>Southern Italy</h3>
+              <p>Dates being confirmed</p>
+            </a>
+          </li>
+          <li class="cover cover--soon">
+            <a href="trip.html">
+              <h3>Northern Italy</h3>
+              <p>Dates being confirmed</p>
+            </a>
+          </li>
+          <li class="cover cover--soon">
+            <a href="trip.html">
+              <h3>Mexico</h3>
+              <p>Dates being confirmed</p>
+            </a>
+          </li>
+          <li class="cover cover--soon">
+            <a href="trip.html">
+              <h3>Europe</h3>
+              <p>Dates being confirmed</p>
+            </a>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </div>
+
+  <!-- 5. The one trip with dates. Navy, because the schematic map is drawn in
+       paper-coloured strokes and disappears on a light ground. -->
+  <div class="band band--navy">
+    <div class="wrap railed">
+      <section class="leg" id="dates" aria-labelledby="now-title">
+        <span class="pin pin--live" aria-hidden="true"></span>
+        <div class="leg__head">
+          <h2 class="display" id="now-title">On sale now: Okanagan Valley</h2>
+          <p>Ten nights in a chalet above Kelowna, in the heart of Canada's main wine region. Six people a
+            departure, from <span data-mxn="26900">$26,900 MXN</span>.</p>
+        </div>
+        <div class="now">
+          <ol class="board">
+            <li>
+              <p class="board__when">21 Jun – 1 Jul</p>
+              <p class="board__seats"><span class="seats">2 seats left</span></p>
+              <p class="board__money"><span data-mxn="8070">$8,070</span> to book</p>
+              <a class="btn btn--book" href="trip.html?departure=2027-06-21#book">Book</a>
+            </li>
+            <li>
+              <p class="board__when">8 – 18 Jul</p>
+              <p class="board__seats"><span class="seats seats--full">Full</span></p>
+              <p class="board__money">Waitlist open</p>
+              <a class="btn btn--line" href="trip.html?departure=2027-07-08#book">Join the waitlist</a>
+            </li>
+            <li>
+              <p class="board__when">20 – 30 Jul</p>
+              <p class="board__seats"><span class="seats">5 seats left</span></p>
+              <p class="board__money"><span data-mxn="8070">$8,070</span> to book</p>
+              <a class="btn btn--book" href="trip.html?departure=2027-07-20#book">Book</a>
+            </li>
+            <li>
+              <p class="board__when">26 Aug – 5 Sep</p>
+              <p class="board__seats"><span class="seats">6 seats left</span></p>
+              <p class="board__money"><span data-mxn="8070">$8,070</span> to book</p>
+              <a class="btn btn--book" href="trip.html?departure=2027-08-26#book">Book</a>
+            </li>
+          </ol>
+          <figure class="now__map">
+            <svg viewBox="-30 0 450 620" role="img" aria-labelledby="mini-map-title">
+              <title id="mini-map-title">Schematic map of the Okanagan Valley, from Penticton to Revelstoke</title>
+              <g fill="none" stroke="#f6f6f6" stroke-opacity="0.16" stroke-linecap="round">
+                <path stroke-width="12" d="M142 272C130 300 118 320 114 350S110 410 112 432C104 450 84 458 78 474S82 520 86 530S92 552 95 558"/>
+                <path stroke-width="6" d="M158 313L141 357"/>
+                <path stroke-width="6" d="M101 578L99 606"/>
+              </g>
+              <g fill="none" stroke="#f6f6f6" stroke-opacity="0.6" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="7 7">
+                <path d="M97 564C88 530 70 500 69 468C72 450 95 440 115 429C125 410 128 390 131 374C140 345 150 320 157 300"/>
+                <path d="M115 429C150 440 190 460 222 486"/>
+                <path d="M157 300C165 270 170 250 171 238C180 190 200 130 213 105C260 80 320 70 362 52"/>
+              </g>
+              <circle cx="222" cy="486" r="9" fill="#000026" stroke="#cfff06" stroke-width="5"/>
+              <g fill="#cfff06">
+                <circle cx="115" cy="429" r="6.5"/><circle cx="131" cy="374" r="6.5"/><circle cx="69" cy="468" r="6.5"/>
+                <circle cx="157" cy="300" r="6.5"/><circle cx="97" cy="564" r="6.5"/>
+              </g>
+              <g transform="translate(362 52) rotate(-8)" fill="#cfff06">
+                <rect x="-13" y="-4.5" width="26" height="9" rx="4.5"/><rect x="-4.5" y="-13" width="9" height="26" rx="4.5"/>
+              </g>
+              <g class="map-label">
+                <text x="222" y="516" text-anchor="middle">Chalet on Big White</text>
+                <text x="127" y="421">Kelowna</text>
+                <text x="144" y="379">Lake Country</text>
+                <text x="56" y="473" text-anchor="end">Peachland</text>
+                <text x="170" y="305">Vernon</text>
+                <text x="110" y="569">Penticton</text>
+                <text x="346" y="36" text-anchor="end">Revelstoke</text>
+              </g>
+            </svg>
+            <figcaption>The route, from the chalet on Big White. <a href="trip.html#map">Open the full map</a></figcaption>
+          </figure>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- 6. How you actually buy it. The one loud band, spent where the question
+       is "what happens if I click Book". -->
+  <div class="band band--blue">
+    <div class="wrap railed">
+      <section class="leg" id="how" aria-labelledby="how-title">
+        <span class="pin" aria-hidden="true"></span>
+        <div class="leg__head">
+          <h2 class="display" id="how-title">How a trip works</h2>
+          <p>No deposit is final for fifteen days, and nothing is charged that you have not seen first.</p>
+        </div>
+        <ol class="steps">
+          <li><h3>Book with 30%</h3><p>The deposit holds your seat. You have 15 days to change your mind about it.</p></li>
+          <li><h3>Pay the rest your way</h3><p>Monthly, or in one payment. Everything is settled 45 days before you travel.</p></li>
+          <li><h3>Meet the group</h3><p>Six to eight people, small enough to share one table at dinner.</p></li>
+          <li><h3>Travel with a host and a chef</h3><p>With you from the first evening to the airport.</p></li>
+        </ol>
+      </section>
+    </div>
+  </div>
+
+  <!-- 7. Your host. -->
+  <div class="band band--cream">
+    <div class="wrap railed">
+      <section class="leg host" id="host" aria-labelledby="host-title">
+        <span class="pin" aria-hidden="true"></span>
+        <div class="frame" role="img" aria-label="Space for Federica's portrait"><span>Federica's portrait</span><span>1:1, 2048 px minimum</span></div>
+        <div>
+          <h2 class="display" id="host-title">Your host, Federica</h2>
+          <p>Federica Caglioti is an Art Director and the founder of Studio Superbo, with an international creative
+            career. She hosts every trip and sets its rhythm: local culture, places with a real connection to
+            nature, and moments that stay in your memory rather than only on your phone.</p>
+          <p>She answers the messages on this site herself, usually within a day.</p>
+        </div>
+      </section>
+    </div>
+  </div>
+
+</main>
+
+<div class="band band--navy">
+  <div class="wrap railed">
+    <footer class="leg leg--end foot" id="contact">
+      <svg class="pin pin--end" viewBox="0 0 40 40" aria-hidden="true">
+        <g transform="rotate(-8 20 20)" fill="#cfff06"><rect x="5" y="15" width="30" height="10" rx="5"/><rect x="15" y="5" width="10" height="30" rx="5"/></g>
+      </svg>
+      <h2 class="display">Write to us</h2>
+      <p>We answer within a day.</p>
+      <p><a class="foot__mail" href="mailto:hey@offthemap.it">hey@offthemap.it</a></p>
+
+      <div class="foot__cols">
+        <div>
+          <h3>Talk to us</h3>
+          <p><a href="mailto:hey@offthemap.it">hey@offthemap.it</a></p>
+          <p>WhatsApp <a href="tel:+393520050586">+39 352 005 0586</a></p>
+          <p>Mon–Fri, 9:00–18:00 CET</p>
+          <p class="foot__social">
+            <a href="#" aria-label="Off The Map on Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/></g><circle cx="17.4" cy="6.6" r="1.3" fill="currentColor"/></svg></a>
+            <a href="#" aria-label="Off The Map on Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H7.8v3h2.6V21z"/></svg></a>
+          </p>
+        </div>
+        <div>
+          <h3>Trips</h3>
+          <ul>
+            <li><a href="#trips">All destinations</a></li>
+          </ul>
+        </div>
+        <details class="foot__acc" open>
+          <summary><h3>Legal</h3></summary>
+          <ul>
+            <li><a href="#">Terms and conditions</a></li>
+            <li><a href="#">Privacy policy</a></li>
+            <li><a href="#">Cancellation policy</a></li>
+            <li><a href="#">Cookie preferences</a></li>
+          </ul>
+        </details>
+        <details class="foot__acc" open>
+          <summary><h3>Language</h3></summary>
+          <ul>
+            <li><a href="#" aria-current="true">English</a></li>
+            <li><a href="#">Italiano</a></li>
+            <li><a href="#">Español</a></li>
+            <li><a href="#">Deutsch</a></li>
+          </ul>
+        </details>
+      </div>
+
+      <div class="foot__legal">
+        <p>Off The Map Adventure Ltd</p>
+        <dl><dt>Registered in England and Wales, company no.</dt><dd>00000000</dd></dl>
+        <p>Registered office: 00 Placeholder Street, London, XX0 0XX, United Kingdom</p>
+        <p>© 2026 Off The Map</p>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<script src="site.js"></script>
+</body>
+</html>
