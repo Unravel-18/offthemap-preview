@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head><meta name="robots" content="noindex">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Off The Map — three directions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..600&family=Gloock&family=Fraunces:opsz,wght,SOFT,WONK@9..144,400,0..100,0..1&family=Archivo:wdth,wght@100..125,500..700&display=swap">
+<style>
+/* The index is the frame around the proposals, not a fourth proposal, so its
+   own text is set in the system face. Each panel is a slice of its direction,
+   drawn in that direction's own ground, type and photograph. */
+
+:root {
+  --navy: #000026;
+  --paper: #f6f6f6;
+  --orange: #f2441f;
+  --lime: #cfff06;
+  --blue: #130bb2;
+  --muted: rgba(0, 0, 38, 0.66);
+  --gutter: clamp(1.125rem, 4vw, 3.5rem);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--navy);
+  font: 400 1.0625rem/1.55 system-ui, -apple-system, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, p, ul, figure { margin: 0; }
+ul { list-style: none; padding: 0; }
+img { display: block; max-width: 100%; }
+a { color: var(--blue); text-underline-offset: 3px; }
+:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+
+.page { max-width: 90rem; margin-inline: auto; padding: clamp(1.5rem, 4vw, 3rem) var(--gutter) 3rem; }
+
+.head { display: grid; gap: 1rem; margin-bottom: clamp(2rem, 5vw, 3.5rem); }
+.head img { width: 58px; height: auto; margin-bottom: 0.5rem; }
+.head h1 { font-size: clamp(1.875rem, 4vw, 3rem); line-height: 1.1; letter-spacing: -0.02em; font-weight: 700; max-width: 20ch; }
+.head p { max-width: 58ch; color: var(--muted); font-size: 1.125rem; }
+
+.options { display: grid; gap: 3rem 2rem; }
+@media (min-width: 960px) { .options { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+.option { display: grid; gap: 1rem; align-content: start; }
+.option__panel { display: block; position: relative; overflow: hidden; aspect-ratio: 4 / 5; text-decoration: none; border-radius: 3px; }
+.option__panel:hover { outline: 3px solid var(--navy); outline-offset: 4px; }
+.option h2 { font-size: 1.375rem; line-height: 1.2; font-weight: 700; }
+.option h2 b { display: inline-block; min-width: 1.4em; }
+.option p { color: var(--muted); max-width: 46ch; }
+.option__links { display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem; font-weight: 600; }
+.option__fonts { font-size: 0.9375rem; }
+
+/* ---- A: a full-frame scene over a cream ground ------------------------- */
+.pa { background: #ffebde; color: var(--navy); display: grid; grid-template-rows: 1fr auto; font-family: 'Bricolage Grotesque', sans-serif; }
+.pa__scene { position: relative; display: grid; align-items: end; overflow: hidden; color: var(--paper); }
+.pa__scene > img:first-child { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.pa__scene::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0, 0, 38, 0.8), rgba(0, 0, 38, 0.3) 40%, rgba(0, 0, 38, 0) 65%); }
+.pa__logo { position: absolute; top: 1rem; left: 1rem; width: 44px; z-index: 1; }
+.pa__title { position: relative; z-index: 1; padding: 1.25rem; font-weight: 300; font-size: clamp(2.1rem, 3.6vw, 2.9rem); line-height: 0.98; letter-spacing: -0.025em; }
+.pa__row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 1.25rem; }
+.pa__when { font-weight: 300; font-size: 1.375rem; letter-spacing: -0.02em; }
+.pa__book { background: var(--orange); color: var(--navy); border-radius: 999px; padding: 0.45rem 1.1rem; font-weight: 600; font-size: 0.9375rem; }
+
+/* ---- B: paper ground, overlapping photographs, a display serif --------- */
+.pb { background: #fff0; box-shadow: inset 0 0 0 1px rgba(0, 0, 38, 0.14); color: var(--navy); padding: 1.25rem; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); grid-template-rows: auto 1fr auto; }
+.pb__logo { width: 40px; grid-column: 1 / 3; }
+.pb__big { grid-column: 3 / 7; grid-row: 1 / 3; width: 100%; height: 88%; object-fit: cover; align-self: end; }
+.pb__small { grid-column: 1 / 4; grid-row: 2 / 4; width: 100%; aspect-ratio: 1; object-fit: cover; align-self: end; margin-bottom: 3.5rem; box-shadow: 0 0 0 0.5rem var(--paper); position: relative; }
+.pb__title { grid-column: 1 / 7; grid-row: 3; font-family: 'Gloock', serif; font-size: clamp(1.75rem, 3vw, 2.4rem); line-height: 1.02; letter-spacing: -0.01em; position: relative; background: var(--paper); padding-top: 0.5rem; }
+
+/* ---- C: navy ground, contours, the route and its markers --------------- */
+.pc { background: var(--navy); color: var(--paper); padding: 1.25rem 1.25rem 1.25rem 3.25rem; display: grid; grid-template-rows: auto 1fr auto; gap: 1rem; }
+.pc__logo { width: 44px; }
+.pc__rail { position: absolute; left: 1.6rem; top: 5.2rem; bottom: 2.3rem; width: 3px; transform: translateX(-50%); background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3' height='22'%3E%3Crect width='3' height='12' rx='1.5' fill='%23f6f6f6' fill-opacity='0.55'/%3E%3C/svg%3E") repeat-y; }
+.pc__ring { position: absolute; left: 1.6rem; top: 4.4rem; width: 22px; height: 22px; transform: translateX(-50%); border-radius: 50%; border: 6px solid var(--lime); background: var(--navy); }
+.pc__cross { position: absolute; left: 1.6rem; bottom: 1.1rem; width: 28px; transform: translateX(-50%); }
+.pc__photo { width: 100%; height: 100%; min-height: 0; object-fit: cover; border-radius: 2px; }
+.pc__contours { position: absolute; right: -30%; top: 8%; width: 110%; pointer-events: none; }
+.pc__title { font-family: 'Fraunces', serif; font-variation-settings: 'SOFT' 100, 'WONK' 1; font-size: clamp(1.75rem, 3vw, 2.4rem); line-height: 1.02; position: relative; }
+.pc__coords { font-family: 'Archivo', sans-serif; font-stretch: 122%; font-weight: 500; font-size: 0.75rem; color: rgba(246, 246, 246, 0.7); margin-bottom: 0.35rem; }
+
+.notes { margin-top: clamp(3rem, 7vw, 5rem); padding-top: 1.5rem; border-top: 1px solid rgba(0, 0, 38, 0.14); display: grid; gap: 1rem; color: var(--muted); font-size: 0.9375rem; }
+.notes p { max-width: 80ch; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="head">
+    <img src="logos/logo-navy.png" alt="Off The Map" width="480" height="565">
+    <h1>Three directions for the site</h1>
+    <p>Each one is a different way for Off The Map to look and feel, built from your palette and your logo.
+      Open one, click from the homepage to the trip page, then come back and try the next.</p>
+  </header>
+
+  <main class="options">
+
+    <article class="option">
+      <a class="option__panel pa" href="a/" aria-label="Open direction A, Film">
+        <span class="pa__scene">
+          <img src="https://images.unsplash.com/photo-1604117276828-2f235610f3dc?auto=format&fit=crop&q=70&w=900" alt="">
+          <img class="pa__logo" src="logos/logo-light.png" alt="">
+          <span class="pa__title">Ten nights in the Okanagan Valley.</span>
+        </span>
+        <span class="pa__row"><span class="pa__when">21 June – 1 July</span><span class="pa__book">Book</span></span>
+      </a>
+      <h2><b>A.</b>Film</h2>
+      <p>Cinematic and calm. Full-screen photographs that slide over one another as you scroll, a warm cream
+        page between them, and a trip page where the picture changes with each stop of the route.</p>
+      <p class="option__fonts">Bricolage Grotesque</p>
+      <p class="option__links"><a href="a/">Homepage</a><a href="a/trip.html">Trip page</a></p>
+    </article>
+
+    <article class="option">
+      <a class="option__panel pb" href="b/" aria-label="Open direction B, Journal">
+        <img class="pb__logo" src="logos/logo-navy.png" alt="">
+        <img class="pb__big" src="https://images.unsplash.com/photo-1618776574386-1003feb9e86f?auto=format&fit=crop&q=70&w=700" alt="">
+        <img class="pb__small" src="https://images.unsplash.com/photo-1709588099531-1d27fa41c839?auto=format&fit=crop&q=70&w=500" alt="">
+        <span class="pb__title">Ten nights above Kelowna.</span>
+      </a>
+      <h2><b>B.</b>Journal</h2>
+      <p>Quiet and editorial, like a travel magazine. A light page where the photographs lead, and the route
+        reads as a story, one stop at a time.</p>
+      <p class="option__fonts">Gloock and Schibsted Grotesk</p>
+      <p class="option__links"><a href="b/">Homepage</a><a href="b/trip.html">Trip page</a></p>
+    </article>
+
+    <article class="option">
+      <a class="option__panel pc" href="c/" aria-label="Open direction C, Map">
+        <svg class="pc__contours" viewBox="0 0 600 420" aria-hidden="true">
+          <g fill="none" stroke="#f6f6f6" stroke-opacity="0.14" stroke-width="1.5">
+            <path d="M300 150C340 140 370 170 360 205C352 238 310 250 280 236C250 222 250 175 300 150Z"/>
+            <path d="M298 118C360 104 408 150 398 206C390 262 320 284 268 266C220 250 214 190 244 150C258 132 276 122 298 118Z"/>
+            <path d="M292 84C378 66 446 124 438 208C430 290 340 322 256 300C186 282 170 206 206 148C226 114 256 92 292 84Z"/>
+            <path d="M286 48C396 26 488 100 478 212C468 318 356 360 244 334C152 312 126 216 170 142C196 96 238 58 286 48Z"/>
+          </g>
+        </svg>
+        <span class="pc__rail" aria-hidden="true"></span>
+        <span class="pc__ring" aria-hidden="true"></span>
+        <svg class="pc__cross" viewBox="0 0 40 40" aria-hidden="true"><g transform="rotate(-8 20 20)" fill="#cfff06"><rect x="5" y="15" width="30" height="10" rx="5"/><rect x="15" y="5" width="10" height="30" rx="5"/></g></svg>
+        <img class="pc__logo" src="logos/logo-light.png" alt="">
+        <img class="pc__photo" src="https://images.unsplash.com/photo-1726776905281-dc377fa58cdd?auto=format&fit=crop&q=70&w=700" alt="">
+        <span>
+          <span class="pc__coords" style="display:block">Kelowna, 49.888° N 119.496° W</span>
+          <span class="pc__title">Places most people drive past.</span>
+        </span>
+      </a>
+      <h2><b>C.</b>Map</h2>
+      <p>Night blue and cartographic. The dotted route from your logo pack runs through every page, and the
+        trip page opens on a map of the valley with a pin for each stop.</p>
+      <p class="option__fonts">Fraunces and Archivo</p>
+      <p class="option__links"><a href="c/">Homepage</a><a href="c/trip.html">Trip page</a></p>
+    </article>
+
+  </main>
+
+  <footer class="notes">
+    <p>The Okanagan dates, prices and trip text are the real ones. The seats left are there to show how a
+      nearly full and a full departure look. Booking and payment are not part of these pages. The portraits
+      are empty frames waiting for your photos.</p>
+    <p>Photographs are stand-ins from <a href="https://unsplash.com">Unsplash</a> until yours are ready, by
+      Emma Englund, Robbie Down, Adam B, Debbie-Lynn Jeske, Rafael Peier, Faizal Bukhari, Angelina Scott,
+      Michael McComb, Mayur Arvind, Kolby Milton, Rodney Saigeon, Kat Kelley, Kyndall Ramirez, Ali Kazal,
+      Jeshua Zachariah, Erwan Hesry, Vincenzo De Simone, Michiel Ronde, Benjamin Hayward, Anastasiia Malai
+      and Mikheil Kuzmidi.</p>
+  </footer>
+
+</div>
+
+</body>
+</html>

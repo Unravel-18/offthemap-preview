@@ -1,0 +1,304 @@
+/* A — Film.
+ *
+ * The site as a sequence of full-screen scenes. Photographs carry the colour;
+ * between them the ground is the brand cream (#ffebde) with navy text. Orange
+ * appears only on Book, always with a navy label (5.2:1; white would be 3.5:1).
+ * Lime never appears: every surface here is light or a photograph.
+ *
+ * Text over a photograph always sits on a navy scrim at the bottom of the
+ * frame. The scrim is there for legibility, not decoration.
+ *
+ * Type: one family, Bricolage Grotesque, SIL OFL. Its optical size axis lets
+ * the same face run light and wide-set at display size and sturdy at text size.
+ * B and C both lead with a serif; this one deliberately does not.
+ */
+
+:root {
+  --cream: #ffebde;
+  --navy: #000026;
+  --paper: #f6f6f6;
+  --orange: #f2441f;
+  --blue: #130bb2;
+  --muted: rgba(0, 0, 38, 0.7);
+  --rule: rgba(0, 0, 38, 0.16);
+  --scrim: rgba(0, 0, 38, 0.8);
+
+  --sans: 'Bricolage Grotesque', system-ui, sans-serif;
+
+  --gutter: clamp(1.25rem, 5vw, 5rem);
+
+  --s2: 0.5rem;
+  --s3: 0.75rem;
+  --s4: 1rem;
+  --s5: 1.5rem;
+  --s6: 2.25rem;
+  --s7: 3.5rem;
+  --s8: clamp(4.5rem, 10vw, 9rem);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--navy);
+  font-family: var(--sans);
+  font-optical-sizing: auto;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, p, ul, ol, dl, dd, figure { margin: 0; }
+ul, ol { list-style: none; padding: 0; }
+img { display: block; max-width: 100%; }
+a { color: var(--blue); text-underline-offset: 3px; }
+:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+
+.big {
+  font-weight: 300;
+  letter-spacing: -0.025em;
+  line-height: 0.98;
+}
+
+/* ---- Buttons ----------------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+  padding: 0.7rem 1.6rem;
+  border: 0;
+  border-radius: 999px;
+  font: 600 1rem/1 var(--sans);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.btn--book { background: var(--orange); color: var(--navy); }
+.btn--book:hover { background: var(--paper); }
+.btn--ghost { background: transparent; color: inherit; box-shadow: inset 0 0 0 1.5px currentColor; }
+.btn--ghost:hover { background: var(--navy); color: var(--paper); box-shadow: none; }
+.scene .btn--ghost:hover { background: var(--paper); color: var(--navy); }
+
+/* ---- Scenes: full-screen photographs ----------------------------------- */
+
+.scene {
+  position: relative;
+  display: grid;
+  align-items: end;
+  min-height: 100svh;
+  overflow: hidden;
+  color: var(--paper);
+  background: var(--navy);
+}
+.scene > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.scene::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, var(--scrim) 0%, rgba(0, 0, 38, 0.55) 48%, rgba(0, 0, 38, 0) 78%);
+}
+.scene a:not(.btn) { color: var(--paper); }
+.scene :focus-visible { outline-color: var(--paper); }
+.scene__text { position: relative; z-index: 1; padding: var(--s8) var(--gutter) clamp(2rem, 7vh, 4.5rem); display: grid; gap: var(--s4); }
+.scene__kicker { font-weight: 500; font-size: 0.9375rem; color: rgba(246, 246, 246, 0.86); }
+.scene h1 { font-size: clamp(3rem, 9.5vw, 9rem); max-width: 11ch; }
+.scene h2 { font-size: clamp(2.5rem, 7vw, 6.5rem); max-width: 13ch; }
+.scene p { max-width: 42ch; }
+.scene__act { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s4); margin-top: var(--s3); }
+
+/* The header rides on the first scene, with its own scrim at the top. */
+.scene--first::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 12rem;
+  z-index: 1;
+  background: linear-gradient(to bottom, rgba(0, 0, 38, 0.5), rgba(0, 0, 38, 0));
+}
+.top {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s4);
+  padding: var(--s4) var(--gutter);
+  color: var(--paper);
+}
+.top__logo img { height: 72px; width: auto; }
+.top__nav { display: flex; align-items: center; gap: var(--s5); font-weight: 500; }
+.top__nav a { color: var(--paper); text-decoration: none; }
+.top__nav a:hover, .top__nav a[aria-current='page'] { text-decoration: underline; text-underline-offset: 6px; }
+.top__lang, .top__menu {
+  font: inherit;
+  color: inherit;
+  background: rgba(0, 0, 38, 0.25);
+  border: 1.5px solid rgba(246, 246, 246, 0.6);
+  border-radius: 999px;
+  padding: 0.2em 0.85em;
+  cursor: pointer;
+}
+.top__menu { display: none; }
+@media (max-width: 640px) {
+  .top__nav a { display: none; }
+  .top__menu { display: inline-block; }
+}
+
+/* Scenes that stack: each one sticks while the next slides over it. */
+.reel .scene { position: sticky; top: 0; }
+
+/* ---- Cream sections ---------------------------------------------------- */
+
+.sec { padding: var(--s8) var(--gutter); }
+.sec__title { font-size: clamp(2.25rem, 5vw, 4.5rem); max-width: 16ch; margin-bottom: var(--s6); }
+.sec__lede { max-width: 50ch; color: var(--muted); margin-top: calc(-1 * var(--s4)); margin-bottom: var(--s6); }
+
+.intro { display: grid; gap: var(--s6); }
+.intro__big { font-size: clamp(1.75rem, 3.8vw, 3.5rem); max-width: 24ch; line-height: 1.08; }
+.intro__facts { display: flex; flex-wrap: wrap; gap: var(--s4) clamp(1.5rem, 5vw, 4rem); }
+.intro__facts dt { font-size: 0.875rem; color: var(--muted); }
+.intro__facts dd { font-size: clamp(1.25rem, 2vw, 1.625rem); font-weight: 500; line-height: 1.2; }
+.intro__body { display: grid; gap: var(--s4); max-width: 60ch; }
+@media (min-width: 960px) {
+  .intro--split { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: var(--s7); align-items: start; }
+  .intro--split .intro__facts { grid-column: 1 / -1; }
+}
+
+/* ---- Dates ------------------------------------------------------------- */
+
+.dates li {
+  display: grid;
+  gap: var(--s2) var(--s5);
+  padding-block: var(--s5);
+  border-top: 1px solid var(--rule);
+}
+.dates li:last-child { border-bottom: 1px solid var(--rule); }
+.dates__when { font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 300; letter-spacing: -0.02em; line-height: 1.1; }
+.dates__seats { font-weight: 600; }
+.dates__money { color: var(--muted); }
+.dates .btn { justify-self: start; }
+@media (min-width: 900px) {
+  .dates li { grid-template-columns: minmax(0, 5fr) minmax(0, 2fr) minmax(0, 3fr) auto; align-items: center; }
+  .dates .btn { justify-self: end; }
+}
+
+/* ---- The strip of destinations, swiped sideways ------------------------ */
+
+.strip-sec { padding-block: 0 var(--s8); }
+.strip-sec .sec__title { padding-inline: var(--gutter); }
+.strip {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: min(74vw, 24rem);
+  gap: var(--s4);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--gutter);
+  padding: 0 var(--gutter) var(--s4);
+  scrollbar-width: thin;
+  scrollbar-color: var(--navy) transparent;
+}
+.card { position: relative; aspect-ratio: 3 / 4; overflow: hidden; border-radius: 4px; color: var(--paper); scroll-snap-align: start; background: var(--navy); }
+.card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, var(--scrim), rgba(0, 0, 38, 0) 55%); }
+.card__text { position: absolute; inset: auto 0 0; z-index: 1; padding: var(--s5); }
+.card h3 { font-size: clamp(1.625rem, 2.6vw, 2.25rem); font-weight: 300; letter-spacing: -0.02em; line-height: 1.05; }
+.card p { font-size: 0.9375rem; color: rgba(246, 246, 246, 0.86); }
+.strip__hint { padding-inline: var(--gutter); font-size: 0.875rem; color: var(--muted); margin-top: var(--s2); }
+
+/* ---- Host and payment -------------------------------------------------- */
+
+.frame {
+  display: grid;
+  place-content: center;
+  gap: 0.2rem;
+  aspect-ratio: 4 / 5;
+  background: rgba(0, 0, 38, 0.06);
+  border-radius: 4px;
+  color: var(--muted);
+  font-size: 0.875rem;
+  text-align: center;
+}
+.host { display: grid; gap: var(--s6); align-items: end; }
+.host .frame { max-width: 22rem; }
+.host h2 { font-size: clamp(2.25rem, 5vw, 4.5rem); margin-bottom: var(--s5); }
+.host p { max-width: 52ch; }
+.host p + p { margin-top: var(--s4); }
+@media (min-width: 900px) { .host { grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: var(--s8); } }
+
+.pay { border-top: 1px solid var(--rule); }
+.pay ol { display: grid; gap: var(--s6); counter-reset: step; }
+@media (min-width: 900px) { .pay ol { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s6); } }
+/* A real sequence: the deposit, the rest, the deadline. */
+.pay li::before { counter-increment: step; content: counter(step); display: block; font-size: 3.5rem; font-weight: 200; line-height: 1; margin-bottom: var(--s3); }
+.pay h3 { font-size: 1.375rem; font-weight: 500; line-height: 1.25; margin-bottom: var(--s2); }
+.pay p { color: var(--muted); max-width: 36ch; }
+
+/* ---- Footer ------------------------------------------------------------ */
+
+.foot { background: var(--navy); color: var(--paper); padding: var(--s8) var(--gutter) var(--s6); }
+.foot a { color: var(--paper); }
+.foot :focus-visible { outline-color: var(--paper); }
+.foot__logo { height: 64px; width: auto; margin-bottom: var(--s6); }
+.foot__lede { color: rgba(246, 246, 246, 0.75); margin-bottom: var(--s3); }
+.foot__mail { font-size: clamp(2.25rem, 6.5vw, 6rem); font-weight: 300; letter-spacing: -0.03em; line-height: 1; overflow-wrap: anywhere; }
+.foot__mail a { text-decoration-thickness: 1.5px; text-underline-offset: 0.12em; }
+.foot__row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s4) var(--s6); margin-top: var(--s7); padding-top: var(--s5); border-top: 1px solid rgba(246, 246, 246, 0.2); font-size: 0.9375rem; }
+.foot__row ul { display: flex; flex-wrap: wrap; gap: var(--s2) var(--s5); }
+
+/* ---- Trip: the route as film ------------------------------------------- */
+
+.film__head { padding: var(--s8) var(--gutter) var(--s6); }
+.film__head p { max-width: 52ch; color: var(--muted); }
+.fstop { padding: 0 var(--gutter) var(--s7); }
+.fstop__photo { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 4px; margin-bottom: var(--s4); }
+.fstop h3 { font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 300; letter-spacing: -0.02em; line-height: 1.02; }
+.fstop__theme { color: var(--muted); font-weight: 500; margin-bottom: var(--s3); }
+.fstop__plan { display: grid; gap: var(--s2); max-width: 46ch; }
+.fstop__note { margin-top: var(--s3); font-size: 0.9375rem; color: var(--muted); }
+.film__screen { display: none; }
+
+@media (min-width: 960px) {
+  .film__body { display: grid; grid-template-columns: minmax(0, 11fr) minmax(0, 9fr); }
+  .film__screen { display: block; position: sticky; top: 0; height: 100svh; overflow: hidden; background: var(--navy); }
+  .film__screen img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.7s ease; }
+  .film__screen img.is-active { opacity: 1; }
+  .film__screen::after { content: ''; position: absolute; inset: auto 0 0; height: 30%; background: linear-gradient(to top, rgba(0, 0, 38, 0.55), rgba(0, 0, 38, 0)); }
+  .film__stops { padding-block: 20svh 30svh; }
+  .fstop { min-height: 62svh; display: grid; align-content: center; padding: var(--s6) var(--gutter) var(--s6) clamp(2.5rem, 5vw, 5rem); transition: opacity 0.4s ease; }
+  .fstop__photo { display: none; }
+  .film--live .fstop:not(.is-current) { opacity: 0.35; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .film__screen img, .fstop { transition: none; }
+}
+
+/* ---- Trip: lists ------------------------------------------------------- */
+
+.cols { display: grid; gap: var(--s7); }
+@media (min-width: 900px) { .cols { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--s8); } }
+.cols h3 { font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 300; letter-spacing: -0.02em; line-height: 1.05; margin-bottom: var(--s4); }
+.cols dl { display: grid; gap: var(--s4); }
+.cols dt { font-weight: 600; }
+.cols dd { color: var(--muted); }
+.cols ul.plain li { padding-block: var(--s2); border-top: 1px solid var(--rule); }
+.cols .note { margin-top: var(--s5); color: var(--muted); max-width: 46ch; }
+.priced li { display: flex; justify-content: space-between; gap: var(--s4); padding-block: var(--s3); border-top: 1px solid var(--rule); }
+.priced li > span:last-child { white-space: nowrap; text-align: right; font-weight: 500; }
+.priced small { display: block; color: var(--muted); font-size: 0.875rem; }
+
+.team { display: grid; gap: var(--s7); }
+@media (min-width: 900px) { .team { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--s8); } }
+.person { display: grid; gap: var(--s4); align-content: start; }
+.person .frame { max-width: 18rem; }
+.person__role { color: var(--muted); font-weight: 500; }
+.person h3 { font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 300; letter-spacing: -0.02em; line-height: 1.05; }
+.person p:last-child { max-width: 48ch; }

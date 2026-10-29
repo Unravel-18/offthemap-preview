@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+# Generated from the database, so it always knows the published trips and all
+# four language URLs.
+Sitemap: https://api.offthemap.it/sitemap.xml
