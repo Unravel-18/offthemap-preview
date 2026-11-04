@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 215" fill="none"
+     role="img" aria-label="A dotted route running from a start marker to a destination">
+  <!--
+    The route motif, redrawn by hand from the logo pack
+    (docs/from_owner/Design/Logo OTM Advenure - PNG, variant 19).
+
+    Round-capped dashes, a lime ring at the origin, a lime cross at the
+    destination. Lime only reads on the navy ground (~17:1); on off-white it is
+    ~1.1:1. So this file is for DARK SURFACES ONLY. On paper, use the navy
+    vertical rail instead.
+  -->
+
+  <!-- destination -->
+  <g transform="rotate(-8 238 28)">
+    <rect x="223" y="23" width="30" height="10" rx="5" fill="#cfff06"/>
+    <rect x="233" y="13" width="10" height="30" rx="5" fill="#cfff06"/>
+  </g>
+
+  <!-- the way there -->
+  <path d="M238 48c0 26-26 34-50 36s-54-4-68 14 -2 32 22 36 46 2 56 16 -6 26-28 31"
+        stroke="#f6f6f6" stroke-width="7" stroke-linecap="round"
+        stroke-dasharray="16 15"/>
+
+  <!-- origin -->
+  <circle cx="150" cy="182" r="13" stroke="#cfff06" stroke-width="9"/>
+</svg>

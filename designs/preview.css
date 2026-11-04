@@ -1,0 +1,45 @@
+/* The proposal bar. Chrome around the three designs, not part of any of them,
+ * so it takes the system face and stays out of their way. Colours are still
+ * the brand's: paper, navy. */
+
+.pv {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.4rem max(1rem, env(safe-area-inset-left));
+  background: #f6f6f6;
+  color: #000026;
+  border-bottom: 1px solid rgba(0, 0, 38, 0.16);
+  font: 500 13px/1.2 system-ui, -apple-system, 'Segoe UI', sans-serif;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.pv a {
+  color: inherit;
+  text-decoration: none;
+  border-radius: 999px;
+  padding: 0.45rem 0.75rem;
+  white-space: nowrap;
+}
+
+.pv a:hover { background: rgba(0, 0, 38, 0.08); }
+.pv a:focus-visible { outline: 2px solid #130bb2; outline-offset: 1px; }
+
+.pv a[aria-current='page'] {
+  background: #000026;
+  color: #f6f6f6;
+}
+
+.pv__set { display: flex; gap: 0.125rem; }
+.pv__set b { font-weight: 700; margin-right: 0.3em; }
+
+@media (max-width: 480px) {
+  .pv__name { display: none; }
+  .pv__set b { margin-right: 0; }
+  .pv__set a { min-width: 2.25rem; text-align: center; }
+}

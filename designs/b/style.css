@@ -1,0 +1,365 @@
+/* B — Journal.
+ *
+ * A travel feature, not a brochure. The ground is the brand's cool off-white
+ * (#f6f6f6), deliberately not a warm cream page. Navy carries the text, blue
+ * (11:1 on this ground) the links, and orange appears only on Book, always
+ * with a navy label. The brand cream (#ffebde) is kept for the people and the
+ * food. Lime never appears: on a light ground it is 1.1:1.
+ *
+ * Type: Gloock, a high-contrast display serif, takes the role the deck gave
+ * Migra and IvyPresto. Schibsted Grotesk, drawn for a newsroom, carries the
+ * reading and the interface. Both SIL OFL.
+ *
+ * Structure is a 12-column grid used asymmetrically: photographs are offset
+ * and overlap, text sits against them. No rules between columns, no dense
+ * newspaper setting. Space does the separating.
+ */
+
+:root {
+  --paper: #f6f6f6;
+  --navy: #000026;
+  --blue: #130bb2;
+  --orange: #f2441f;
+  --cream: #ffebde;
+  --muted: rgba(0, 0, 38, 0.68);
+
+  --display: 'Gloock', Georgia, serif;
+  --text: 'Schibsted Grotesk', system-ui, sans-serif;
+
+  --gutter: clamp(1.125rem, 4.5vw, 4rem);
+  --col-gap: clamp(1rem, 2vw, 2rem);
+  --page: 88rem;
+
+  --s2: 0.5rem;
+  --s3: 0.75rem;
+  --s4: 1rem;
+  --s5: 1.5rem;
+  --s6: 2.25rem;
+  --s7: 3.5rem;
+  --s8: clamp(4.5rem, 10vw, 9rem);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--navy);
+  font-family: var(--text);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, p, ul, ol, dl, dd, figure { margin: 0; }
+ul, ol { list-style: none; padding: 0; }
+img { display: block; max-width: 100%; }
+
+a { color: var(--blue); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+
+.display {
+  font-family: var(--display);
+  font-weight: 400;
+  letter-spacing: -0.012em;
+  line-height: 1.02;
+}
+
+.wrap { max-width: var(--page); margin-inline: auto; padding-inline: var(--gutter); }
+
+/* On a phone the grid collapses to one column and the offsets become
+   insets, so the page keeps its asymmetry at 390px too. */
+.grid { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: var(--s5); }
+@media (min-width: 900px) {
+  .grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--col-gap); }
+}
+
+figcaption { margin-top: var(--s3); font-size: 0.875rem; color: var(--muted); max-width: 44ch; }
+.photo img { width: 100%; object-fit: cover; }
+
+/* ---- Header ------------------------------------------------------------ */
+
+.top { display: flex; align-items: center; justify-content: space-between; gap: var(--s4); padding-block: var(--s4); }
+.top__logo img { height: 64px; width: auto; }
+.top__nav { display: flex; align-items: center; gap: var(--s5); font-weight: 500; font-size: 0.9375rem; }
+.top__nav a { color: var(--navy); text-decoration: none; }
+.top__nav a:hover, .top__nav a[aria-current='page'] { text-decoration: underline; text-underline-offset: 6px; }
+.top__lang, .top__menu {
+  font: inherit;
+  color: var(--navy);
+  background: none;
+  border: 1px solid rgba(0, 0, 38, 0.35);
+  border-radius: 999px;
+  padding: 0.25em 0.8em;
+  cursor: pointer;
+}
+.top__menu { display: none; }
+@media (max-width: 640px) {
+  .top__nav a { display: none; }
+  .top__menu { display: inline-block; }
+}
+
+/* ---- Buttons ----------------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.9rem;
+  padding: 0.65rem 1.4rem;
+  border-radius: 999px;
+  border: 0;
+  font-family: var(--text);
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+/* Orange takes a navy label. White would be 3.5:1. */
+.btn--book { background: var(--orange); color: var(--navy); }
+.btn--book:hover { background: var(--navy); color: var(--paper); }
+.btn--quiet { background: transparent; color: var(--navy); box-shadow: inset 0 0 0 1px var(--navy); }
+.btn--quiet:hover { background: var(--navy); color: var(--paper); }
+
+.more { font-weight: 600; }
+
+/* ---- Home: hero -------------------------------------------------------- */
+
+.hero { padding-block: var(--s6) var(--s8); }
+.hero h1 { font-size: clamp(2.9rem, 7.4vw, 7rem); }
+.hero__lede { font-size: clamp(1.125rem, 1.6vw, 1.3125rem); max-width: 38ch; }
+.hero__big img { aspect-ratio: 4 / 5; }
+.hero__small img { aspect-ratio: 1; }
+
+@media (max-width: 899px) {
+  .hero__big { margin-left: 14%; margin-top: var(--s5); }
+  .hero__big figcaption { margin-left: 52%; }
+  .hero__small { width: 50%; margin-top: -3.5rem; position: relative; }
+  .hero__small img { box-shadow: 0 0 0 0.5rem var(--paper); }
+}
+@media (min-width: 900px) {
+  .hero h1 { grid-column: 1 / 8; grid-row: 1; align-self: end; }
+  .hero__lede { grid-column: 1 / 6; grid-row: 2; }
+  .hero__big { grid-column: 8 / 13; grid-row: 1 / 4; margin-top: var(--s7); }
+  .hero__small { grid-column: 3 / 7; grid-row: 3; margin-top: var(--s6); position: relative; z-index: 1; }
+  .hero__small img { box-shadow: 0 0 0 0.75rem var(--paper); }
+}
+
+/* ---- Home: statement --------------------------------------------------- */
+
+.statement { padding-block: var(--s8); }
+.statement p { font-size: clamp(1.9rem, 4.6vw, 4.25rem); line-height: 1.08; max-width: 22ch; }
+@media (min-width: 900px) { .statement p { margin-left: calc(100% / 12 * 2); } }
+
+/* ---- Home: the current trip, as a spread ------------------------------- */
+
+.spread { padding-block: 0 var(--s8); }
+.spread__photo img { aspect-ratio: 3 / 2; }
+.spread__text { display: grid; gap: var(--s5); align-content: end; }
+.spread h2 { font-size: clamp(2.25rem, 4.4vw, 4rem); }
+@media (min-width: 900px) {
+  .spread__photo { grid-column: 1 / 8; }
+  .spread__text { grid-column: 9 / 13; }
+}
+
+.dates-mini { display: grid; }
+.dates-mini li {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s4);
+  padding-block: var(--s3);
+  border-top: 1px solid rgba(0, 0, 38, 0.14);
+}
+.dates-mini li:last-child { border-bottom: 1px solid rgba(0, 0, 38, 0.14); }
+.dates-mini span:last-child { color: var(--muted); }
+.spread__act { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s4) var(--s5); }
+
+/* ---- Home: where next -------------------------------------------------- */
+
+.next { padding-block: 0 var(--s8); }
+.next h2 { font-size: clamp(2.25rem, 4.4vw, 4rem); margin-bottom: var(--s7); }
+.place h3 { font-family: var(--display); font-weight: 400; font-size: clamp(1.625rem, 2.4vw, 2.25rem); line-height: 1.1; margin-top: var(--s4); }
+.place p { color: var(--muted); font-size: 0.9375rem; }
+.place img { aspect-ratio: 3 / 2; }
+.place--tall img { aspect-ratio: 4 / 5; }
+.next .grid { row-gap: var(--s7); }
+@media (max-width: 899px) {
+  .place:nth-child(even) { margin-left: 18%; }
+  .place:nth-child(odd) { margin-right: 10%; }
+}
+@media (min-width: 900px) {
+  .place:nth-child(1) { grid-column: 1 / 6; }
+  .place:nth-child(2) { grid-column: 7 / 13; margin-top: var(--s8); }
+  .place:nth-child(3) { grid-column: 2 / 7; }
+  .place:nth-child(4) { grid-column: 8 / 12; margin-top: var(--s7); }
+  .place:nth-child(5) { grid-column: 3 / 10; }
+}
+
+/* ---- People and food: the cream sections ------------------------------- */
+
+.cream { background: var(--cream); }
+.host { padding-block: var(--s8); }
+.host .grid { align-items: end; }
+.frame {
+  display: grid;
+  place-content: center;
+  gap: 0.2rem;
+  aspect-ratio: 4 / 5;
+  background: rgba(0, 0, 38, 0.06);
+  color: var(--muted);
+  font-size: 0.875rem;
+  text-align: center;
+}
+.host h2 { font-size: clamp(2.25rem, 4.4vw, 4rem); margin-bottom: var(--s5); }
+.host p { max-width: 50ch; }
+.host p + p { margin-top: var(--s4); }
+@media (max-width: 899px) { .host .frame { width: 72%; } }
+@media (min-width: 900px) {
+  .host .frame { grid-column: 2 / 6; }
+  .host__text { grid-column: 7 / 12; }
+}
+
+/* ---- Payment ----------------------------------------------------------- */
+
+.pay { padding-block: var(--s8); }
+.pay h2 { font-size: clamp(2.25rem, 4.4vw, 4rem); }
+.pay ol { display: grid; gap: var(--s5); counter-reset: step; }
+.pay li { display: grid; grid-template-columns: 2.5rem minmax(0, 1fr); gap: var(--s3); max-width: 48ch; font-size: 1.125rem; }
+/* It really is a sequence: deposit, then the rest, then the deadline. */
+.pay li::before { counter-increment: step; content: counter(step); font-family: var(--display); font-size: 1.75rem; line-height: 1; }
+@media (min-width: 900px) {
+  .pay h2 { grid-column: 1 / 5; }
+  .pay ol { grid-column: 6 / 12; }
+}
+
+/* ---- Footer ------------------------------------------------------------ */
+
+.foot { background: var(--navy); color: var(--paper); padding-block: var(--s8) var(--s6); }
+.foot a { color: var(--paper); }
+.foot__big { font-size: clamp(2.5rem, 6vw, 5.5rem); }
+.foot__big a { text-decoration-thickness: 2px; text-underline-offset: 0.12em; }
+.foot__lede { margin-bottom: var(--s4); color: rgba(246, 246, 246, 0.72); }
+.foot__row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s4) var(--s6); margin-top: var(--s7); font-size: 0.9375rem; }
+.foot__row ul { display: flex; flex-wrap: wrap; gap: var(--s2) var(--s5); }
+
+/* ---- Trip: title ------------------------------------------------------- */
+
+.title { padding-block: var(--s6) var(--s7); }
+.title__where { font-weight: 500; margin-bottom: var(--s3); }
+.title h1 { font-size: clamp(3.25rem, 11vw, 10rem); line-height: 0.95; }
+.title__stand { font-size: clamp(1.25rem, 2vw, 1.625rem); line-height: 1.4; max-width: 34ch; margin-top: var(--s5); }
+.meta { display: flex; flex-wrap: wrap; gap: var(--s4) clamp(1.5rem, 4vw, 3.5rem); margin-top: var(--s6); }
+.meta dt { font-size: 0.8125rem; color: var(--muted); }
+.meta dd { font-family: var(--display); font-size: 1.5rem; line-height: 1.2; }
+
+.lead-photo img { aspect-ratio: 4 / 3; }
+@media (min-width: 900px) { .lead-photo img { aspect-ratio: 16 / 8; } }
+
+/* ---- Trip: body with the sticky dates card ----------------------------- */
+
+.body { padding-block: var(--s7) var(--s8); align-items: start; }
+.body__text { display: grid; gap: var(--s5); }
+.body__text > p:first-child { font-size: clamp(1.25rem, 1.8vw, 1.5rem); line-height: 1.45; }
+.body__text p { max-width: 60ch; }
+.notes { display: grid; gap: var(--s5); margin-top: var(--s5); }
+.notes h3 { font-family: var(--display); font-weight: 400; font-size: 1.5rem; line-height: 1.2; }
+@media (min-width: 900px) {
+  .body__text { grid-column: 2 / 8; }
+  .card { grid-column: 9 / 13; position: sticky; top: 4.5rem; }
+  .notes { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--col-gap); }
+}
+.card { background: var(--cream); padding: var(--s5); display: grid; gap: var(--s4); }
+.card h2 { font-family: var(--display); font-weight: 400; font-size: 1.75rem; line-height: 1.1; }
+
+/* ---- Trip: the route as a photo essay ---------------------------------- */
+
+.essay { padding-block: 0 var(--s8); }
+.essay > .wrap > h2 { font-size: clamp(2.5rem, 5vw, 4.5rem); max-width: 16ch; margin-bottom: var(--s8); }
+.stop { margin-bottom: var(--s8); align-items: end; }
+.stop h3 { font-family: var(--display); font-weight: 400; font-size: clamp(2rem, 3.4vw, 3.25rem); line-height: 1.05; }
+.stop__theme { font-style: italic; color: var(--muted); margin-bottom: var(--s4); }
+.stop__text p:not(.stop__theme) { max-width: 44ch; }
+.stop__text p + p:not(.stop__theme) { margin-top: var(--s3); }
+.stop__note { font-size: 0.9375rem; color: var(--muted); }
+.stop .photo img { aspect-ratio: 3 / 2; }
+.stop--portrait .photo img { aspect-ratio: 4 / 5; }
+
+@media (max-width: 899px) {
+  .stop--right .photo { margin-left: 12%; }
+  .stop--left .photo { margin-right: 8%; }
+  .stop--plain { padding-left: 12%; }
+}
+@media (min-width: 900px) {
+  .stop--left .photo { grid-column: 1 / 8; }
+  .stop--left .stop__text { grid-column: 9 / 13; }
+  .stop--right .stop__text { grid-column: 1 / 5; grid-row: 1; }
+  .stop--right .photo { grid-column: 6 / 13; grid-row: 1; }
+  .stop--portrait.stop--right .photo { grid-column: 7 / 12; }
+  .stop--plain .stop__text { grid-column: 4 / 10; }
+}
+
+/* ---- Trip: people and food -------------------------------------------- */
+
+.people { padding-block: var(--s8); }
+.people > .wrap > h2 { font-size: clamp(2.25rem, 4.4vw, 4rem); margin-bottom: var(--s7); }
+.person { display: grid; gap: var(--s4); align-content: start; }
+.person .frame { max-width: 24rem; }
+.person__role { font-style: italic; color: var(--muted); }
+.person h3 { font-family: var(--display); font-weight: 400; font-size: 2rem; line-height: 1.1; }
+.person p { max-width: 46ch; }
+.food { margin-top: var(--s8); align-items: center; }
+.food img { aspect-ratio: 3 / 2; }
+.food p { font-family: var(--display); font-size: clamp(1.75rem, 3vw, 2.75rem); line-height: 1.12; max-width: 18ch; }
+@media (max-width: 899px) { .people .frame { width: 70%; } .people .person:nth-child(2) { margin-top: var(--s6); } }
+@media (min-width: 900px) {
+  .person:nth-child(1) { grid-column: 1 / 6; }
+  .person:nth-child(2) { grid-column: 7 / 12; margin-top: var(--s8); }
+  .food .photo { grid-column: 1 / 8; }
+  .food p { grid-column: 9 / 13; }
+}
+
+/* ---- Trip: what's included, rooms, extras ------------------------------ */
+
+.facts { padding-block: var(--s8); row-gap: var(--s7); }
+.facts h2 { font-family: var(--display); font-weight: 400; font-size: clamp(1.875rem, 3vw, 2.75rem); line-height: 1.1; margin-bottom: var(--s5); }
+.facts dl { display: grid; gap: var(--s4); }
+.facts dt { font-weight: 600; }
+.facts ul.plain { display: grid; gap: var(--s2); }
+.facts ul.plain li::before { content: '–'; margin-right: 0.6em; color: var(--muted); }
+.facts .small { margin-top: var(--s5); font-size: 0.9375rem; color: var(--muted); max-width: 44ch; }
+.priced li { display: flex; justify-content: space-between; gap: var(--s4); padding-block: var(--s3); border-top: 1px solid rgba(0, 0, 38, 0.14); }
+.priced li > span:last-child { white-space: nowrap; text-align: right; }
+.priced small { display: block; color: var(--muted); font-size: 0.875rem; }
+@media (min-width: 900px) {
+  .facts > div:nth-child(1) { grid-column: 1 / 6; }
+  .facts > div:nth-child(2) { grid-column: 7 / 12; }
+  .facts > div:nth-child(3) { grid-column: 1 / 6; }
+  .facts > div:nth-child(4) { grid-column: 7 / 12; }
+}
+
+/* ---- Trip: dates ------------------------------------------------------- */
+
+.dates { padding-block: var(--s8); }
+.dates h2 { font-size: clamp(2.5rem, 5vw, 4.5rem); }
+.dates__intro { max-width: 46ch; margin-top: var(--s4); }
+.dates ol { margin-top: var(--s7); }
+.date-row {
+  display: grid;
+  gap: var(--s2) var(--s5);
+  padding-block: var(--s5);
+  border-top: 1px solid rgba(0, 0, 38, 0.18);
+}
+.date-row:last-child { border-bottom: 1px solid rgba(0, 0, 38, 0.18); }
+.date-row__when { font-family: var(--display); font-size: clamp(1.75rem, 3vw, 2.5rem); line-height: 1.1; }
+.date-row__seats { font-weight: 600; }
+.date-row__money { color: var(--muted); }
+.date-row .btn { justify-self: start; margin-top: var(--s2); }
+@media (min-width: 900px) {
+  .date-row { grid-template-columns: 5fr 3fr 3fr auto; align-items: center; }
+  .date-row .btn { justify-self: end; margin-top: 0; }
+}
