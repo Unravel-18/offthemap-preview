@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head><meta name="robots" content="noindex">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="only light">
+<title>Off The Map — small-group journeys</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo:wdth,wght@62..125,400..800&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-page="home">
+
+<header class="top" data-top></header>
+
+<main>
+
+  <section class="hero">
+    <img class="hero__img" src="https://api.otmadventure.com/storage/trips/southern-italy/calabria-fc6f673b-1600.webp" alt="">
+    <div class="hero__in">
+      <h1 class="hero__title"><em>Embracing ‘Vita&nbsp;Lenta’</em><br>through slow traveling</h1>
+      <p class="hero__sub">Curated journeys for up to 8 guests, blending authentic local experiences with premium hospitality. Discover hidden local cultures with a dedicated host and dining experiences designed or curated by our founders: from private chef dinners to authentic local tables.</p>
+      <form class="finder" data-finder>
+        <label class="finder__field">
+          <span>Where to?</span>
+          <select name="where" data-where><option value="">Anywhere</option></select>
+        </label>
+        <label class="finder__field">
+          <span>When</span>
+          <select name="when" data-when><option value="">Any month</option></select>
+        </label>
+        <button class="btn btn--solid" type="submit">Explore Destinations</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="trips" id="where" aria-labelledby="where-title">
+    <div class="wrap">
+      <h2 id="where-title">Where we go</h2>
+      <p class="lede">Handcrafted itineraries built around authentic local culture. Discover where we are traveling next and reserve your place.</p>
+      <div class="tabs-row">
+        <div class="tabs" role="tablist" data-tabs></div>
+        <div class="arrows" data-arrows="trips">
+          <button type="button" aria-label="Previous" data-prev>&larr;</button>
+          <button type="button" aria-label="Next" data-next>&rarr;</button>
+        </div>
+      </div>
+    </div>
+    <div class="wrap wrap--rail"><div class="rail rail--cards" data-rail="trips"></div></div>
+    <div class="wrap trips__foot">
+      <a class="btn btn--line" href="trips.html">View all trips (<span data-count></span>)</a>
+      <div class="progress" data-progress="trips"><span></span></div>
+    </div>
+  </section>
+
+  <section class="why" id="why" aria-labelledby="why-title">
+    <div class="wrap">
+      <h2 id="why-title">Why travel with us</h2>
+      <div class="why__grid">
+        <div>
+          <h3>Intimate groups up to 8 guests</h3>
+          <p>No crowds, no standard tours. Micro-groups designed to blend seamlessly into local life and access places closed to traditional tourism.</p>
+        </div>
+        <div>
+          <h3>Chef curated gastronomy</h3>
+          <p>Every dining experience is a narrative of the land, featuring private chef dinners, regional ingredients, and handpicked local tables.</p>
+        </div>
+        <div>
+          <h3>Geography off the radar</h3>
+          <p>We design access to private ateliers, hidden courtyards, and daily rituals that standard guides overlook.</p>
+        </div>
+        <div>
+          <h3>Vita Lenta in practice</h3>
+          <p>Space to breathe, observe, and settle in. Journeys crafted around depth and quiet luxury, far from exhausting schedules.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="featured" aria-labelledby="featured-title">
+    <div class="wrap">
+      <h2 id="featured-title">Featured trips</h2>
+      <p class="lede">Open dates for the upcoming season. With a maximum of 6 to 8 spots per itinerary depending on the journey, space is inherently limited.</p>
+      <div class="featured__grid" data-featured></div>
+      <div class="featured__foot"><a class="btn btn--line" href="trips.html">Explore more</a></div>
+    </div>
+  </section>
+
+  <section class="booking" aria-labelledby="booking-title">
+    <div class="wrap">
+      <h2 id="booking-title">How booking works</h2>
+      <p class="lede">Reserve your spot with total peace of mind, guaranteed terms, and clear payment options.</p>
+      <ol class="booking__steps">
+        <li>
+          <h3>Reserve with an initial deposit</h3>
+          <p>Lock in your seat with an initial deposit defined for each journey, keeping upfront commitments manageable.</p>
+        </li>
+        <li>
+          <h3>15-day grace period</h3>
+          <p>Your deposit includes a 15-day risk-free guarantee to change your mind or adjust your plans with zero hassle.</p>
+        </li>
+        <li>
+          <h3>Pay your way</h3>
+          <p>Flexible monthly installments or a single balance payment due 60 days before departure.</p>
+        </li>
+        <li>
+          <h3>Hosted every step</h3>
+          <p>Travel seamlessly with dedicated on-the-ground support and hosting from your arrival to the final sendoff.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section data-cta></section>
+
+</main>
+
+<footer class="foot" id="contact" data-foot></footer>
+
+<script src="site.js"></script>
+</body>
+</html>
